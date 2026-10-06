@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Movimientos - CampoGana</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #111827;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1f2937;
+    }
+
+    header h2 {
+      color: #22c55e;
+    }
+
+    .volver {
+      color: white;
+      text-decoration: none;
+    }
+
+    .contenedor {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .resumen {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .tarjeta {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .tarjeta h3 {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .valor {
+      font-size: 24px;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    .movimientos {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .movimiento {
+      padding: 18px 0;
+      border-bottom: 1px solid #334155;
+    }
+
+    .movimiento:last-child {
+      border-bottom: none;
+    }
+
+    .ganancia {
+      color: #22c55e;
+      font-weight: bold;
+    }
+
+    .retiro {
+      color: #f87171;
+      font-weight: bold;
+    }
+
+    .fecha {
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .vacio {
+      color: #94a3b8;
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    @media (max-width: 650px) {
+      .resumen {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>CampoGana</h2>
+  <a href="panel.html" class="volver">← Volver</a>
+</header>
+
+<div class="contenedor">
+
+  <h1>📊 Movimientos</h1>
+
+  <p>
+    Aquí puedes consultar tus ganancias y retiros.
+  </p>
+
+  <div class="resumen">
+
+    <div class="tarjeta">
+      <h3>💰 Saldo actual</h3>
+      <div class="valor" id="saldo">$0.00</div>
+    </div>
+
+    <div class="tarjeta">
+      <h3>📥 Ganancias</h3>
+      <div class="valor" id="ganancias">$0.00</div>
+    </div>
+
+    <div class="tarjeta">
+      <h3>📤 Retiros</h3>
+      <div class="valor" id="retirosTotal">$0.00</div>
+    </div>
+
+  </div>
+
+  <div class="movimientos">
+
+    <h2>Historial</h2>
+
+    <div id="listaMovimientos"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const usuario =
+    localStorage.getItem("usuario");
+
+  if (!usuario) {
+    window.location.href = "index.html";
+    return;
+  }
+
+
+  const saldo =
+    parseFloat(localStorage.getItem("saldo")) || 0;
+
+  const ganancias =
+    parseFloat(localStorage.getItem("ganancias")) || 0;
+
+
+  const retiros =
+    JSON.parse(localStorage.getItem("retiros")) || [];
+
+
+  document.getElementById("saldo").textContent =
+    "$" + saldo.toFixed(2);
+
+  document.getElementById("ganancias").textContent =
+    "$" + ganancias.toFixed(2);
+
+
+  let totalRetiros = 0;
+
+  retiros.forEach(function (retiro) {
+
+    totalRetiros +=
+      parseFloat(retiro.monto) || 0;
+
+  });
+
+
+  document.getElementById("retirosTotal").textContent =
+    "$" + totalRetiros.toFixed(2);
+
+
+  const lista =
+    document.getElementById("listaMovimientos");
+
+
+  if (retiros.length === 0) {
+
+    lista.innerHTML =
+      '<div class="vacio">Todavía no tienes retiros registrados.</div>';
+
+    return;
+  }
+
+
+  retiros.reverse().forEach(function (retiro) {
+
+    const elemento =
+      document.createElement("div");
+
+    elemento.className =
+      "movimiento";
+
+    elemento.innerHTML =
+
+      '<div class="retiro">📤 Retiro: -$' +
+      parseFloat(retiro.monto).toFixed(2) +
+      '</div>' +
+
+      '<div>Método: ' +
+      retiro.metodo +
+      '</div>' +
+
+      '<div>Saldo después del retiro: $' +
+      parseFloat(retiro.saldoDespues).toFixed(2) +
+      '</div>' +
+
+      '<div class="fecha">' +
+      retiro.fecha +
+      '</div>';
+
+
+    lista.appendChild(elemento);
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
