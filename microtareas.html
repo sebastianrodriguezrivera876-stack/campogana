@@ -2,10 +2,12 @@
 <html lang="es">
 
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Panel - CampoGana</title>
+  <title>Microtareas - CampoGana</title>
 
   <style>
 
@@ -41,7 +43,7 @@
     }
 
     .contenedor {
-      max-width: 900px;
+      max-width: 800px;
       margin: 40px auto;
       padding: 20px;
     }
@@ -55,75 +57,44 @@
       margin-bottom: 30px;
     }
 
-    .resumen {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .tarjeta {
+    .tarea {
       background: #1e293b;
       padding: 22px;
       border-radius: 14px;
+      margin-bottom: 18px;
     }
 
-    .tarjeta small {
+    .tarea h2 {
+      margin-bottom: 8px;
+    }
+
+    .tarea p {
       color: #94a3b8;
+      margin-bottom: 15px;
+      line-height: 1.5;
     }
 
-    .tarjeta h2 {
-      margin-top: 10px;
+    .recompensa {
       color: #4ade80;
-    }
-
-    .acciones {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .boton {
-      display: block;
-      background: #22c55e;
-      color: white;
-      text-decoration: none;
-      padding: 15px;
-      text-align: center;
-      border-radius: 10px;
+      font-size: 20px;
       font-weight: bold;
-    }
-
-    .boton:hover {
-      background: #16a34a;
-    }
-
-    .actividad {
-      background: #1e293b;
-      padding: 22px;
-      border-radius: 14px;
-    }
-
-    .actividad h2 {
       margin-bottom: 15px;
     }
 
-    #actividad {
-      color: #cbd5e1;
-      line-height: 1.7;
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      background: #22c55e;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    @media (max-width: 650px) {
-
-      .resumen {
-        grid-template-columns: 1fr;
-      }
-
-      .acciones {
-        grid-template-columns: 1fr;
-      }
-
+    button:hover {
+      background: #16a34a;
     }
 
   </style>
@@ -148,132 +119,66 @@
 <div class="contenedor">
 
 
-  <h1>📊 Panel principal</h1>
+  <h1>💼 Microtareas disponibles</h1>
 
   <p class="descripcion">
-    Aquí puedes consultar tus ganancias y movimientos.
+    Completa tareas sencillas y gana dinero en bolivianos.
   </p>
 
 
-  <div class="resumen">
+  <div class="tarea">
 
+    <h2>📋 Encuesta</h2>
 
-    <div class="tarjeta">
+    <p>
+      Responde una pequeña encuesta sobre tus actividades.
+    </p>
 
-      <small>
-        💰 Saldo disponible
-      </small>
-
-      <h2 id="saldo">
-        0.00 Bs
-      </h2>
-
+    <div class="recompensa">
+      +6.00 Bs
     </div>
 
-
-    <div class="tarjeta">
-
-      <small>
-        📋 Microtareas completadas
-      </small>
-
-      <h2 id="tareas">
-        0
-      </h2>
-
-    </div>
-
-
-    <div class="tarjeta">
-
-      <small>
-        💵 Ganancias
-      </small>
-
-      <h2 id="ganancias">
-        0.00 Bs
-      </h2>
-
-    </div>
-
+    <button onclick="realizarTarea('encuesta', 6)">
+      Realizar tarea
+    </button>
 
   </div>
 
 
-  <div class="resumen">
+  <div class="tarea">
 
+    <h2>🔎 Revisar información</h2>
 
-    <div class="tarjeta">
+    <p>
+      Revisa información y confirma que los datos sean correctos.
+    </p>
 
-      <small>
-        📈 Total ganado
-      </small>
-
-      <h2 id="totalGanado">
-        0.00 Bs
-      </h2>
-
+    <div class="recompensa">
+      +9.00 Bs
     </div>
 
-
-    <div class="tarjeta">
-
-      <small>
-        📤 Total retirado
-      </small>
-
-      <h2 id="totalRetirado">
-        0.00 Bs
-      </h2>
-
-    </div>
-
-
-    <div class="tarjeta">
-
-      <small>
-        📉 Comisión CampoGana
-      </small>
-
-      <h2 id="totalComision">
-        0.00 Bs
-      </h2>
-
-    </div>
-
+    <button onclick="realizarTarea('revision', 9)">
+      Realizar tarea
+    </button>
 
   </div>
 
 
-  <div class="acciones">
+  <div class="tarea">
 
-    <a
-      href="retiro.html"
-      class="boton"
-    >
-      📤 Retirar dinero
-    </a>
+    <h2>⭐ Valorar contenido</h2>
 
+    <p>
+      Revisa un contenido y selecciona una valoración.
+    </p>
 
-    <a
-      href="movimientos.html"
-      class="boton"
-    >
-      📊 Ver movimientos
-    </a>
-
-  </div>
-
-
-  <div class="actividad">
-
-    <h2>
-      📝 Actividad reciente
-    </h2>
-
-    <div id="actividad">
-      Cargando actividad...
+    <div class="recompensa">
+      +12.00 Bs
     </div>
+
+    <button onclick="realizarTarea('valoracion', 12)">
+      Realizar tarea
+    </button>
 
   </div>
 
@@ -284,225 +189,170 @@
 <script>
 
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
+function realizarTarea(tipo, recompensa) {
 
 
-    const usuario =
-      localStorage.getItem("usuario");
+  let mensaje = "";
 
 
-    if (!usuario) {
+  if (tipo === "encuesta") {
 
-      window.location.href =
-        "index.html";
-
-      return;
-
-    }
-
-
-    const saldo =
-      parseFloat(
-        localStorage.getItem("saldo")
-      ) || 0;
-
-
-    const tareas =
-      parseInt(
-        localStorage.getItem(
-          "tareasCompletadas"
-        )
-      ) || 0;
-
-
-    const ganancias =
-      parseFloat(
-        localStorage.getItem(
-          "ganancias"
-        )
-      ) || 0;
-
-
-    const retiros =
-      JSON.parse(
-        localStorage.getItem(
-          "retiros"
-        )
-      ) || [];
-
-
-    const movimientos =
-      JSON.parse(
-        localStorage.getItem(
-          "movimientos"
-        )
-      ) || [];
-
-
-    document.getElementById(
-      "saldo"
-    ).textContent =
-
-      saldo.toFixed(2) +
-      " Bs";
-
-
-    document.getElementById(
-      "tareas"
-    ).textContent = tareas;
-
-
-    document.getElementById(
-      "ganancias"
-    ).textContent =
-
-      ganancias.toFixed(2) +
-      " Bs";
-
-
-    document.getElementById(
-      "totalGanado"
-    ).textContent =
-
-      ganancias.toFixed(2) +
-      " Bs";
-
-
-    let totalRetirado = 0;
-
-    let totalComision = 0;
-
-
-    retiros.forEach(
-      function (retiro) {
-
-        totalRetirado +=
-          parseFloat(
-            retiro.monto
-          ) || 0;
-
-
-        totalComision +=
-          parseFloat(
-            retiro.comision
-          ) || 0;
-
-      }
-    );
-
-
-    document.getElementById(
-      "totalRetirado"
-    ).textContent =
-
-      totalRetirado.toFixed(2) +
-      " Bs";
-
-
-    document.getElementById(
-      "totalComision"
-    ).textContent =
-
-      totalComision.toFixed(2) +
-      " Bs";
-
-
-    const actividad =
-      document.getElementById(
-        "actividad"
-      );
-
-
-    if (
-      movimientos.length === 0 &&
-      retiros.length === 0
-    ) {
-
-      actividad.innerHTML =
-        "Todavía no tienes actividad registrada.";
-
-      return;
-
-    }
-
-
-    let html = "";
-
-
-    movimientos
-      .slice()
-      .reverse()
-      .slice(0, 5)
-      .forEach(
-        function (movimiento) {
-
-          html +=
-
-            "📥 <strong>Ganancia:</strong> +" +
-
-            (
-              parseFloat(
-                movimiento.monto
-              ) || 0
-            ).toFixed(2) +
-
-            " Bs — " +
-
-            movimiento.concepto +
-
-            "<br><br>";
-
-        }
-      );
-
-
-    retiros
-      .slice()
-      .reverse()
-      .slice(0, 5)
-      .forEach(
-        function (retiro) {
-
-          html +=
-
-            "📤 <strong>Retiro:</strong> -" +
-
-            (
-              parseFloat(
-                retiro.monto
-              ) || 0
-            ).toFixed(2) +
-
-            " Bs — Estado: " +
-
-            retiro.estado +
-
-            "<br>";
-
-          html +=
-
-            "📉 Comisión: " +
-
-            (
-              parseFloat(
-                retiro.comision
-              ) || 0
-            ).toFixed(2) +
-
-            " Bs<br><br>";
-
-        }
-      );
-
-
-    actividad.innerHTML = html;
-
+    mensaje =
+      "📋 Encuesta\n\n" +
+      "¿Cuál es tu actividad principal?\n\n" +
+      "1. Estudiante\n" +
+      "2. Trabajo\n" +
+      "3. Negocio\n" +
+      "4. Otro";
 
   }
 
-);
+
+  if (tipo === "revision") {
+
+    mensaje =
+      "🔎 Revisar información\n\n" +
+      "¿La información presentada es correcta?\n\n" +
+      "1. Sí\n" +
+      "2. No";
+
+  }
+
+
+  if (tipo === "valoracion") {
+
+    mensaje =
+      "⭐ Valorar contenido\n\n" +
+      "¿Qué valoración le das al contenido?\n\n" +
+      "1. ⭐\n" +
+      "2. ⭐⭐\n" +
+      "3. ⭐⭐⭐\n" +
+      "4. ⭐⭐⭐⭐\n" +
+      "5. ⭐⭐⭐⭐⭐";
+
+  }
+
+
+  const respuesta =
+    prompt(mensaje);
+
+
+  if (respuesta === null) {
+
+    return;
+
+  }
+
+
+  if (
+    respuesta.trim() === ""
+  ) {
+
+    alert(
+      "❌ Debes ingresar una respuesta."
+    );
+
+    return;
+
+  }
+
+
+  let saldo =
+    parseFloat(
+      localStorage.getItem("saldo")
+    ) || 0;
+
+
+  let tareas =
+    parseInt(
+      localStorage.getItem(
+        "tareasCompletadas"
+      )
+    ) || 0;
+
+
+  let ganancias =
+    parseFloat(
+      localStorage.getItem("ganancias")
+    ) || 0;
+
+
+  saldo =
+    saldo + recompensa;
+
+
+  tareas =
+    tareas + 1;
+
+
+  ganancias =
+    ganancias + recompensa;
+
+
+  localStorage.setItem(
+    "saldo",
+    saldo.toFixed(2)
+  );
+
+
+  localStorage.setItem(
+    "tareasCompletadas",
+    tareas
+  );
+
+
+  localStorage.setItem(
+    "ganancias",
+    ganancias.toFixed(2)
+  );
+
+
+  let movimientos =
+    JSON.parse(
+      localStorage.getItem(
+        "movimientos"
+      )
+    ) || [];
+
+
+  movimientos.push({
+
+    tipo: "ganancia",
+
+    concepto:
+      "Microtarea completada",
+
+    monto:
+      recompensa.toFixed(2),
+
+    fecha:
+      new Date().toLocaleString()
+
+  });
+
+
+  localStorage.setItem(
+    "movimientos",
+    JSON.stringify(movimientos)
+  );
+
+
+  alert(
+
+    "✅ Tarea completada\n\n" +
+
+    "Recompensa: +" +
+    recompensa.toFixed(2) +
+    " Bs\n\n" +
+
+    "Saldo actual: " +
+    saldo.toFixed(2) +
+    " Bs"
+
+  );
+
+}
+
 
 </script>
 
