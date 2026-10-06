@@ -173,6 +173,11 @@
 
     const usuarioGuardado = localStorage.getItem("usuario");
 
+    const saldo = localStorage.getItem("saldo") || "0.00";
+
+document.getElementById("saldo").textContent =
+  "$" + parseFloat(saldo).toFixed(2);
+
     if (!usuarioGuardado) {
 
       window.location.href = "login.html";
