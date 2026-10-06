@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Panel - CampoGana</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -104,6 +109,7 @@
     }
 
     @media (max-width: 700px) {
+
       .resumen {
         grid-template-columns: 1fr;
       }
@@ -115,68 +121,99 @@
       main {
         margin: 25px auto;
       }
+
     }
+
   </style>
+
 </head>
 
 <body>
 
   <header>
-    <div class="logo">CampoGana</div>
+
+    <div class="logo">
+      CampoGana
+    </div>
 
     <a href="dashboard.html" class="volver">
       ← Volver
     </a>
+
   </header>
+
 
   <main>
 
     <section class="bienvenida">
+
       <h1>📊 Panel de control</h1>
+
       <p id="saludo">
         Cargando información...
       </p>
+
     </section>
+
 
     <section class="resumen">
 
+
       <div class="tarjeta">
+
         <h3>💰 Saldo disponible</h3>
-        <div class="valor">$0.00</div>
+
+        <div class="valor" id="saldo">
+          $0.00
+        </div>
+
       </div>
 
+
       <div class="tarjeta">
+
         <h3>📋 Microtareas</h3>
-        <div class="valor">0</div>
+
+        <div class="valor" id="tareas">
+          0
+        </div>
+
       </div>
 
+
       <div class="tarjeta">
+
         <h3>💵 Ganancias</h3>
-        <div class="valor">$0.00</div>
+
+        <div class="valor" id="ganancias">
+          $0.00
+        </div>
+
       </div>
+
 
     </section>
+
 
     <section class="actividad">
 
       <h2>📈 Actividad reciente</h2>
 
-      <div class="mensaje">
+      <div class="mensaje" id="actividad">
         Todavía no tienes actividades registradas.
       </div>
 
     </section>
 
+
   </main>
+
 
   <script>
 
-    const usuarioGuardado = localStorage.getItem("usuario");
+    const usuarioGuardado =
+      localStorage.getItem("usuario");
 
-    const saldo = localStorage.getItem("saldo") || "0.00";
-
-document.getElementById("saldo").textContent =
-  "$" + parseFloat(saldo).toFixed(2);
 
     if (!usuarioGuardado) {
 
@@ -184,14 +221,52 @@ document.getElementById("saldo").textContent =
 
     } else {
 
-      const usuario = JSON.parse(usuarioGuardado);
+      const usuario =
+        JSON.parse(usuarioGuardado);
 
       document.getElementById("saludo").textContent =
         "Bienvenido nuevamente, " + usuario.nombre + ".";
+
+
+      const saldo =
+        parseFloat(localStorage.getItem("saldo")) || 0;
+
+
+      const tareas =
+        parseInt(localStorage.getItem("tareasCompletadas")) || 0;
+
+
+      const ganancias =
+        parseFloat(localStorage.getItem("ganancias")) || 0;
+
+
+      document.getElementById("saldo").textContent =
+        "$" + saldo.toFixed(2);
+
+
+      document.getElementById("tareas").textContent =
+        tareas;
+
+
+      document.getElementById("ganancias").textContent =
+        "$" + ganancias.toFixed(2);
+
+
+      if (tareas > 0) {
+
+        document.getElementById("actividad").textContent =
+          "✅ Has completado " +
+          tareas +
+          " microtarea(s) y has ganado $" +
+          ganancias.toFixed(2) +
+          ".";
+
+      }
 
     }
 
   </script>
 
 </body>
+
 </html>
