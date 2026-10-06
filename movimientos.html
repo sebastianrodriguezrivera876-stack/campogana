@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Movimientos - CampoGana</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -33,13 +37,13 @@
       color: #22c55e;
     }
 
-    .volver {
+    header a {
       color: white;
       text-decoration: none;
     }
 
     .contenedor {
-      max-width: 800px;
+      max-width: 700px;
       margin: 40px auto;
       padding: 20px;
     }
@@ -48,258 +52,496 @@
       margin-bottom: 10px;
     }
 
+    .descripcion {
+      color: #94a3b8;
+      margin-bottom: 25px;
+    }
+
     .resumen {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 15px;
-      margin: 25px 0;
+      margin-bottom: 30px;
     }
 
     .tarjeta {
       background: #1e293b;
       padding: 20px;
       border-radius: 12px;
-      text-align: center;
     }
 
-    .tarjeta h3 {
-      font-size: 15px;
-      margin-bottom: 10px;
+    .tarjeta small {
+      color: #94a3b8;
     }
 
-    .valor {
-      font-size: 24px;
-      font-weight: bold;
-      color: #22c55e;
+    .tarjeta h2 {
+      margin-top: 8px;
+      color: #4ade80;
     }
 
-    .movimientos {
+    .historial {
       background: #1e293b;
       padding: 20px;
       border-radius: 12px;
     }
 
-    .movimiento {
-      padding: 18px 0;
-      border-bottom: 1px solid #334155;
+    .historial h2 {
+      margin-bottom: 20px;
     }
 
-    .movimiento:last-child {
-      border-bottom: none;
+    .movimiento {
+      background: #0f172a;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      line-height: 1.7;
     }
 
     .ganancia {
-      color: #22c55e;
+      color: #4ade80;
       font-weight: bold;
+      font-size: 17px;
     }
 
     .retiro {
       color: #f87171;
       font-weight: bold;
+      font-size: 17px;
+    }
+
+    .comision {
+      color: #fbbf24;
+    }
+
+    .recibe {
+      color: #4ade80;
     }
 
     .fecha {
-      color: #94a3b8;
+      color: #64748b;
       font-size: 13px;
       margin-top: 5px;
     }
 
     .vacio {
-      color: #94a3b8;
       text-align: center;
+      color: #94a3b8;
       padding: 30px 10px;
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 600px) {
+
       .resumen {
         grid-template-columns: 1fr;
       }
+
+      .contenedor {
+        margin: 20px auto;
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
+
 <header>
+
   <h2>CampoGana</h2>
-  <a href="panel.html" class="volver">← Volver</a>
+
+  <a href="dashboard.html">
+    ← Volver
+  </a>
+
 </header>
+
 
 <div class="contenedor">
 
   <h1>📊 Movimientos</h1>
 
-  <p>
-    Aquí puedes consultar tus ganancias y retiros.
+  <p class="descripcion">
+    Consulta tus ganancias, retiros y movimientos.
   </p>
+
 
   <div class="resumen">
 
-    <div class="tarjeta">
-      <h3>💰 Saldo actual</h3>
-      <div class="valor" id="saldo">$0.00</div>
-    </div>
 
     <div class="tarjeta">
-      <h3>📥 Ganancias</h3>
-      <div class="valor" id="ganancias">$0.00</div>
+
+      <small>
+        💰 Saldo actual
+      </small>
+
+      <h2 id="saldo">
+        0.00 Bs
+      </h2>
+
     </div>
 
+
     <div class="tarjeta">
-      <h3>📤 Retiros</h3>
-      <div class="valor" id="retirosTotal">$0.00</div>
+
+      <small>
+        📥 Ganancias
+      </small>
+
+      <h2 id="ganancias">
+        0.00 Bs
+      </h2>
+
+    </div>
+
+
+    <div class="tarjeta">
+
+      <small>
+        📤 Total retirado
+      </small>
+
+      <h2 id="retirosTotal">
+        0.00 Bs
+      </h2>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="historial">
+
+    <h2>
+      📋 Historial de movimientos
+    </h2>
+
+    <div id="listaMovimientos">
+
+      <div class="vacio">
+        Cargando movimientos...
+      </div>
+
     </div>
 
   </div>
 
-  <div class="movimientos">
-
-    <h2>Historial</h2>
-
-    <div id="listaMovimientos"></div>
-
-  </div>
 
 </div>
 
+
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
 
-  const usuario = localStorage.getItem("usuario");
-
-  if (!usuario) {
-    window.location.href = "index.html";
-    return;
-  }
-
-  const saldo =
-    parseFloat(localStorage.getItem("saldo")) || 0;
-
-  const ganancias =
-    parseFloat(localStorage.getItem("ganancias")) || 0;
-
-  const retiros =
-    JSON.parse(localStorage.getItem("retiros")) || [];
-
-  const movimientos =
-    JSON.parse(localStorage.getItem("movimientos")) || [];
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
 
 
-  document.getElementById("saldo").textContent =
-    "$" + saldo.toFixed(2);
-
-  document.getElementById("ganancias").textContent =
-    "$" + ganancias.toFixed(2);
+    const usuario =
+      localStorage.getItem("usuario");
 
 
-  let totalRetiros = 0;
+    if (!usuario) {
 
-  retiros.forEach(function (retiro) {
+      window.location.href =
+        "index.html";
 
-    totalRetiros +=
-      parseFloat(retiro.monto) || 0;
-
-  });
-
-
-  document.getElementById("retirosTotal").textContent =
-    "$" + totalRetiros.toFixed(2);
-
-
-  const lista =
-    document.getElementById("listaMovimientos");
-
-
-  let historial = [];
-
-
-  movimientos.forEach(function (movimiento) {
-
-    historial.push({
-      tipo: "ganancia",
-      concepto: movimiento.concepto,
-      monto: parseFloat(movimiento.monto),
-      fecha: movimiento.fecha
-    });
-
-  });
-
-
-  retiros.forEach(function (retiro) {
-
-    historial.push({
-      tipo: "retiro",
-      concepto: "Retiro de dinero",
-      monto: parseFloat(retiro.monto),
-      metodo: retiro.metodo,
-      fecha: retiro.fecha
-    });
-
-  });
-
-
-  if (historial.length === 0) {
-
-    lista.innerHTML =
-      '<div class="vacio">Todavía no tienes movimientos registrados.</div>';
-
-    return;
-  }
-
-
-  historial.reverse().forEach(function (movimiento) {
-
-    const elemento =
-      document.createElement("div");
-
-    elemento.className =
-      "movimiento";
-
-
-    if (movimiento.tipo === "ganancia") {
-
-      elemento.innerHTML =
-
-        '<div class="ganancia">📥 Ganancia: +$' +
-        movimiento.monto.toFixed(2) +
-        '</div>' +
-
-        '<div>' +
-        movimiento.concepto +
-        '</div>' +
-
-        '<div class="fecha">' +
-        movimiento.fecha +
-        '</div>';
-
-    } else {
-
-      elemento.innerHTML =
-
-        '<div class="retiro">📤 Retiro: -$' +
-        movimiento.monto.toFixed(2) +
-        '</div>' +
-
-        '<div>' +
-        movimiento.concepto +
-        '</div>' +
-
-        '<div>Método: ' +
-        movimiento.metodo +
-        '</div>' +
-
-        '<div class="fecha">' +
-        movimiento.fecha +
-        '</div>';
+      return;
 
     }
 
 
-    lista.appendChild(elemento);
+    const saldo =
+      parseFloat(
+        localStorage.getItem("saldo")
+      ) || 0;
 
-  });
 
-});
+    const ganancias =
+      parseFloat(
+        localStorage.getItem("ganancias")
+      ) || 0;
+
+
+    const retiros =
+      JSON.parse(
+        localStorage.getItem("retiros")
+      ) || [];
+
+
+    const movimientos =
+      JSON.parse(
+        localStorage.getItem("movimientos")
+      ) || [];
+
+
+    document.getElementById(
+      "saldo"
+    ).textContent =
+
+      saldo.toFixed(2) +
+      " Bs";
+
+
+    document.getElementById(
+      "ganancias"
+    ).textContent =
+
+      ganancias.toFixed(2) +
+      " Bs";
+
+
+    let totalRetiros = 0;
+
+
+    retiros.forEach(
+      function (retiro) {
+
+        totalRetiros +=
+          parseFloat(
+            retiro.monto
+          ) || 0;
+
+      }
+    );
+
+
+    document.getElementById(
+      "retirosTotal"
+    ).textContent =
+
+      totalRetiros.toFixed(2) +
+      " Bs";
+
+
+    const lista =
+      document.getElementById(
+        "listaMovimientos"
+      );
+
+
+    let historial = [];
+
+
+    movimientos.forEach(
+      function (movimiento) {
+
+        historial.push({
+
+          tipo: "ganancia",
+
+          concepto:
+            movimiento.concepto,
+
+          monto:
+            parseFloat(
+              movimiento.monto
+            ) || 0,
+
+          fecha:
+            movimiento.fecha
+
+        });
+
+      }
+    );
+
+
+    retiros.forEach(
+      function (retiro) {
+
+        historial.push({
+
+          tipo: "retiro",
+
+          concepto:
+            "Retiro de dinero",
+
+          monto:
+            parseFloat(
+              retiro.monto
+            ) || 0,
+
+          comision:
+            parseFloat(
+              retiro.comision
+            ) || 0,
+
+          montoRecibido:
+            parseFloat(
+              retiro.montoRecibido
+            ) || 0,
+
+          metodo:
+            retiro.metodo,
+
+          estado:
+            retiro.estado,
+
+          fecha:
+            retiro.fecha
+
+        });
+
+      }
+    );
+
+
+    if (historial.length === 0) {
+
+      lista.innerHTML =
+
+        '<div class="vacio">' +
+
+        'Todavía no tienes movimientos registrados.' +
+
+        '</div>';
+
+      return;
+
+    }
+
+
+    historial.reverse().forEach(
+
+      function (movimiento) {
+
+
+        const elemento =
+          document.createElement(
+            "div"
+          );
+
+
+        elemento.className =
+          "movimiento";
+
+
+        if (
+          movimiento.tipo ===
+          "ganancia"
+        ) {
+
+
+          elemento.innerHTML =
+
+            '<div class="ganancia">' +
+
+            '📥 Ganancia: +' +
+
+            movimiento.monto.toFixed(2) +
+
+            ' Bs' +
+
+            '</div>' +
+
+            '<div>' +
+
+            movimiento.concepto +
+
+            '</div>' +
+
+            '<div class="fecha">' +
+
+            movimiento.fecha +
+
+            '</div>';
+
+
+        } else {
+
+
+          elemento.innerHTML =
+
+            '<div class="retiro">' +
+
+            '📤 Retiro: -' +
+
+            movimiento.monto.toFixed(2) +
+
+            ' Bs' +
+
+            '</div>' +
+
+
+            '<div>' +
+
+            movimiento.concepto +
+
+            '</div>' +
+
+
+            '<div>' +
+
+            '💳 Método: ' +
+
+            movimiento.metodo +
+
+            '</div>' +
+
+
+            '<div>' +
+
+            '📌 Estado: ' +
+
+            movimiento.estado +
+
+            '</div>' +
+
+
+            '<div class="comision">' +
+
+            '📉 Comisión CampoGana (10%): ' +
+
+            movimiento.comision.toFixed(2) +
+
+            ' Bs' +
+
+            '</div>' +
+
+
+            '<div class="recibe">' +
+
+            '✅ Usuario recibe: ' +
+
+            movimiento.montoRecibido.toFixed(2) +
+
+            ' Bs' +
+
+            '</div>' +
+
+
+            '<div class="fecha">' +
+
+            movimiento.fecha +
+
+            '</div>';
+
+        }
+
+
+        lista.appendChild(
+          elemento
+        );
+
+
+      }
+
+    );
+
+
+  }
+
+);
 
 </script>
+
+
+</body>
+
+</html>
