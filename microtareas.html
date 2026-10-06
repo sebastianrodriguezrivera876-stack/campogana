@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microtareas - CampoGana</title>
+
+  <title>Panel - CampoGana</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,256 +17,496 @@
     }
 
     body {
-      min-height: 100vh;
-      background: #07111f;
+      background: #0f172a;
       color: white;
+      min-height: 100vh;
     }
 
     header {
+      background: #111827;
+      padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 7%;
-      border-bottom: 1px solid #1e293b;
+      border-bottom: 1px solid #1f2937;
     }
 
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
+    header h2 {
       color: #22c55e;
     }
 
-    .volver {
+    header a {
       color: white;
       text-decoration: none;
-      padding: 10px 18px;
-      border: 1px solid #334155;
-      border-radius: 8px;
     }
 
-    main {
-      max-width: 1100px;
+    .contenedor {
+      max-width: 900px;
       margin: 40px auto;
       padding: 20px;
     }
 
     h1 {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    .subtitulo {
+    .descripcion {
       color: #94a3b8;
       margin-bottom: 30px;
     }
 
-    .tareas {
+    .resumen {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 15px;
+      margin-bottom: 25px;
     }
 
-    .tarea {
-      background: #0f1b2d;
-      border: 1px solid #1e293b;
-      border-radius: 18px;
-      padding: 25px;
+    .tarjeta {
+      background: #1e293b;
+      padding: 22px;
+      border-radius: 14px;
     }
 
-    .tarea h2 {
-      margin-bottom: 12px;
-    }
-
-    .tarea p {
+    .tarjeta small {
       color: #94a3b8;
-      line-height: 1.5;
-      margin-bottom: 20px;
     }
 
-    .recompensa {
-      color: #22c55e;
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 18px;
+    .tarjeta h2 {
+      margin-top: 10px;
+      color: #4ade80;
+    }
+
+    .acciones {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
     }
 
     .boton {
       display: block;
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
       background: #22c55e;
-      color: #04110a;
+      color: white;
+      text-decoration: none;
+      padding: 15px;
       text-align: center;
+      border-radius: 10px;
       font-weight: bold;
-      cursor: pointer;
     }
 
     .boton:hover {
       background: #16a34a;
     }
 
-    @media (max-width: 800px) {
-      .tareas {
+    .actividad {
+      background: #1e293b;
+      padding: 22px;
+      border-radius: 14px;
+    }
+
+    .actividad h2 {
+      margin-bottom: 15px;
+    }
+
+    #actividad {
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 650px) {
+
+      .resumen {
         grid-template-columns: 1fr;
       }
 
-      header {
-        padding: 18px;
+      .acciones {
+        grid-template-columns: 1fr;
       }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <header>
 
-    <div class="logo">
-      CampoGana
+<header>
+
+  <h2>CampoGana</h2>
+
+  <a href="dashboard.html">
+    ← Volver
+  </a>
+
+</header>
+
+
+<div class="contenedor">
+
+
+  <h1>📊 Panel principal</h1>
+
+  <p class="descripcion">
+    Aquí puedes consultar tus ganancias y movimientos.
+  </p>
+
+
+  <div class="resumen">
+
+
+    <div class="tarjeta">
+
+      <small>
+        💰 Saldo disponible
+      </small>
+
+      <h2 id="saldo">
+        0.00 Bs
+      </h2>
+
     </div>
 
-    <a href="dashboard.html" class="volver">
-      ← Volver
+
+    <div class="tarjeta">
+
+      <small>
+        📋 Microtareas completadas
+      </small>
+
+      <h2 id="tareas">
+        0
+      </h2>
+
+    </div>
+
+
+    <div class="tarjeta">
+
+      <small>
+        💵 Ganancias
+      </small>
+
+      <h2 id="ganancias">
+        0.00 Bs
+      </h2>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="resumen">
+
+
+    <div class="tarjeta">
+
+      <small>
+        📈 Total ganado
+      </small>
+
+      <h2 id="totalGanado">
+        0.00 Bs
+      </h2>
+
+    </div>
+
+
+    <div class="tarjeta">
+
+      <small>
+        📤 Total retirado
+      </small>
+
+      <h2 id="totalRetirado">
+        0.00 Bs
+      </h2>
+
+    </div>
+
+
+    <div class="tarjeta">
+
+      <small>
+        📉 Comisión CampoGana
+      </small>
+
+      <h2 id="totalComision">
+        0.00 Bs
+      </h2>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="acciones">
+
+    <a
+      href="retiro.html"
+      class="boton"
+    >
+      📤 Retirar dinero
     </a>
 
-  </header>
 
-  <main>
+    <a
+      href="movimientos.html"
+      class="boton"
+    >
+      📊 Ver movimientos
+    </a>
 
-    <h1>💼 Microtareas disponibles</h1>
+  </div>
 
-    <p class="subtitulo">
-      Encuentra tareas disponibles y obtén recompensas.
-    </p>
 
-    <section class="tareas">
+  <div class="actividad">
 
-      <div class="tarea">
+    <h2>
+      📝 Actividad reciente
+    </h2>
 
-        <h2>📋 Encuesta</h2>
+    <div id="actividad">
+      Cargando actividad...
+    </div>
 
-        <p>
-          Responde una encuesta y comparte tu opinión.
-        </p>
+  </div>
 
-        <div class="recompensa">
-          + $0.50
-        </div>
 
-        <button class="boton" onclick="realizarTarea()">
-          Realizar tarea
-        </button>
+</div>
 
-      </div>
 
-      <div class="tarea">
+<script>
 
-        <h2>🔎 Revisar información</h2>
 
-        <p>
-          Revisa información básica y ayuda a mejorar los datos.
-        </p>
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
 
-        <div class="recompensa">
-          + $0.75
-        </div>
 
-        <button class="boton" onclick="realizarTarea()">
-          Realizar tarea
-        </button>
+    const usuario =
+      localStorage.getItem("usuario");
 
-      </div>
 
-      <div class="tarea">
+    if (!usuario) {
 
-        <h2>⭐ Valorar contenido</h2>
+      window.location.href =
+        "index.html";
 
-        <p>
-          Realiza una valoración sencilla sobre un contenido.
-        </p>
+      return;
 
-        <div class="recompensa">
-          + $1.00
-        </div>
-
-        <button class="boton" onclick="realizarTarea()">
-          Realizar tarea
-        </button>
-
-      </div>
-
-    </section>
-
-  </main>
-
-  <script>
-
-    const usuarioGuardado = localStorage.getItem("usuario");
-
-    if (!usuarioGuardado) {
-      window.location.href = "login.html";
     }
 
-  function realizarTarea() {
 
-  const respuesta = prompt(
-    "📋 Encuesta\n\n¿Cuál es tu actividad principal?\n\n1. Estudiante\n2. Trabajo\n3. Negocio\n4. Otro"
-  );
+    const saldo =
+      parseFloat(
+        localStorage.getItem("saldo")
+      ) || 0;
 
-  if (respuesta === null) {
-    return;
-  }
 
-  if (
-    respuesta === "1" ||
-    respuesta === "2" ||
-    respuesta === "3" ||
-    respuesta === "4"
-  ) {
+    const tareas =
+      parseInt(
+        localStorage.getItem(
+          "tareasCompletadas"
+        )
+      ) || 0;
 
-    let saldo = parseFloat(localStorage.getItem("saldo")) || 0;
-    let tareas = parseInt(localStorage.getItem("tareasCompletadas")) || 0;
-    let ganancias = parseFloat(localStorage.getItem("ganancias")) || 0;
 
-    saldo = saldo + 0.50;
-    tareas = tareas + 1;
-    ganancias = ganancias + 0.50;
+    const ganancias =
+      parseFloat(
+        localStorage.getItem(
+          "ganancias"
+        )
+      ) || 0;
 
-    localStorage.setItem("saldo", saldo.toFixed(2));
-    localStorage.setItem("tareasCompletadas", tareas);
-    localStorage.setItem("ganancias", ganancias.toFixed(2));
 
-    let movimientos =
-  JSON.parse(localStorage.getItem("movimientos")) || [];
+    const retiros =
+      JSON.parse(
+        localStorage.getItem(
+          "retiros"
+        )
+      ) || [];
 
-movimientos.push({
-  tipo: "ganancia",
-  concepto: "Microtarea completada",
-  monto: "0.50",
-  fecha: new Date().toLocaleString()
-});
 
-localStorage.setItem(
-  "movimientos",
-  JSON.stringify(movimientos)
-);
-    
-    alert(
-      "✅ Tarea completada\n\n" +
-      "Recompensa: $0.50\n\n" +
-      "Saldo: $" + saldo.toFixed(2)
+    const movimientos =
+      JSON.parse(
+        localStorage.getItem(
+          "movimientos"
+        )
+      ) || [];
+
+
+    document.getElementById(
+      "saldo"
+    ).textContent =
+
+      saldo.toFixed(2) +
+      " Bs";
+
+
+    document.getElementById(
+      "tareas"
+    ).textContent = tareas;
+
+
+    document.getElementById(
+      "ganancias"
+    ).textContent =
+
+      ganancias.toFixed(2) +
+      " Bs";
+
+
+    document.getElementById(
+      "totalGanado"
+    ).textContent =
+
+      ganancias.toFixed(2) +
+      " Bs";
+
+
+    let totalRetirado = 0;
+
+    let totalComision = 0;
+
+
+    retiros.forEach(
+      function (retiro) {
+
+        totalRetirado +=
+          parseFloat(
+            retiro.monto
+          ) || 0;
+
+
+        totalComision +=
+          parseFloat(
+            retiro.comision
+          ) || 0;
+
+      }
     );
 
-  } else {
 
-    alert("❌ Respuesta no válida. Escribe 1, 2, 3 o 4.");
+    document.getElementById(
+      "totalRetirado"
+    ).textContent =
+
+      totalRetirado.toFixed(2) +
+      " Bs";
+
+
+    document.getElementById(
+      "totalComision"
+    ).textContent =
+
+      totalComision.toFixed(2) +
+      " Bs";
+
+
+    const actividad =
+      document.getElementById(
+        "actividad"
+      );
+
+
+    if (
+      movimientos.length === 0 &&
+      retiros.length === 0
+    ) {
+
+      actividad.innerHTML =
+        "Todavía no tienes actividad registrada.";
+
+      return;
+
+    }
+
+
+    let html = "";
+
+
+    movimientos
+      .slice()
+      .reverse()
+      .slice(0, 5)
+      .forEach(
+        function (movimiento) {
+
+          html +=
+
+            "📥 <strong>Ganancia:</strong> +" +
+
+            (
+              parseFloat(
+                movimiento.monto
+              ) || 0
+            ).toFixed(2) +
+
+            " Bs — " +
+
+            movimiento.concepto +
+
+            "<br><br>";
+
+        }
+      );
+
+
+    retiros
+      .slice()
+      .reverse()
+      .slice(0, 5)
+      .forEach(
+        function (retiro) {
+
+          html +=
+
+            "📤 <strong>Retiro:</strong> -" +
+
+            (
+              parseFloat(
+                retiro.monto
+              ) || 0
+            ).toFixed(2) +
+
+            " Bs — Estado: " +
+
+            retiro.estado +
+
+            "<br>";
+
+          html +=
+
+            "📉 Comisión: " +
+
+            (
+              parseFloat(
+                retiro.comision
+              ) || 0
+            ).toFixed(2) +
+
+            " Bs<br><br>";
+
+        }
+      );
+
+
+    actividad.innerHTML = html;
+
 
   }
 
-}
- 
-  </script>
+);
+
+</script>
+
 
 </body>
+
 </html>
