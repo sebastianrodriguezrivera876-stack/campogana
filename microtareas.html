@@ -234,6 +234,21 @@
     localStorage.setItem("tareasCompletadas", tareas);
     localStorage.setItem("ganancias", ganancias.toFixed(2));
 
+    let movimientos =
+  JSON.parse(localStorage.getItem("movimientos")) || [];
+
+movimientos.push({
+  tipo: "ganancia",
+  concepto: "Microtarea completada",
+  monto: "0.50",
+  fecha: new Date().toLocaleString()
+});
+
+localStorage.setItem(
+  "movimientos",
+  JSON.stringify(movimientos)
+);
+    
     alert(
       "✅ Tarea completada\n\n" +
       "Recompensa: $0.50\n\n" +
