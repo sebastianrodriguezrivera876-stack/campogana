@@ -166,14 +166,12 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  const usuario =
-    localStorage.getItem("usuario");
+  const usuario = localStorage.getItem("usuario");
 
   if (!usuario) {
     window.location.href = "index.html";
     return;
   }
-
 
   const saldo =
     parseFloat(localStorage.getItem("saldo")) || 0;
@@ -181,9 +179,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const ganancias =
     parseFloat(localStorage.getItem("ganancias")) || 0;
 
-
   const retiros =
     JSON.parse(localStorage.getItem("retiros")) || [];
+
+  const movimientos =
+    JSON.parse(localStorage.getItem("movimientos")) || [];
 
 
   document.getElementById("saldo").textContent =
@@ -211,16 +211,44 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("listaMovimientos");
 
 
-  if (retiros.length === 0) {
+  let historial = [];
+
+
+  movimientos.forEach(function (movimiento) {
+
+    historial.push({
+      tipo: "ganancia",
+      concepto: movimiento.concepto,
+      monto: parseFloat(movimiento.monto),
+      fecha: movimiento.fecha
+    });
+
+  });
+
+
+  retiros.forEach(function (retiro) {
+
+    historial.push({
+      tipo: "retiro",
+      concepto: "Retiro de dinero",
+      monto: parseFloat(retiro.monto),
+      metodo: retiro.metodo,
+      fecha: retiro.fecha
+    });
+
+  });
+
+
+  if (historial.length === 0) {
 
     lista.innerHTML =
-      '<div class="vacio">Todavía no tienes retiros registrados.</div>';
+      '<div class="vacio">Todavía no tienes movimientos registrados.</div>';
 
     return;
   }
 
 
-  retiros.reverse().forEach(function (retiro) {
+  historial.reverse().forEach(function (movimiento) {
 
     const elemento =
       document.createElement("div");
@@ -228,23 +256,44 @@ document.addEventListener("DOMContentLoaded", function () {
     elemento.className =
       "movimiento";
 
-    elemento.innerHTML =
 
-      '<div class="retiro">📤 Retiro: -$' +
-      parseFloat(retiro.monto).toFixed(2) +
-      '</div>' +
+    if (movimiento.tipo === "ganancia") {
 
-      '<div>Método: ' +
-      retiro.metodo +
-      '</div>' +
+      elemento.innerHTML =
 
-      '<div>Saldo después del retiro: $' +
-      parseFloat(retiro.saldoDespues).toFixed(2) +
-      '</div>' +
+        '<div class="ganancia">📥 Ganancia: +$' +
+        movimiento.monto.toFixed(2) +
+        '</div>' +
 
-      '<div class="fecha">' +
-      retiro.fecha +
-      '</div>';
+        '<div>' +
+        movimiento.concepto +
+        '</div>' +
+
+        '<div class="fecha">' +
+        movimiento.fecha +
+        '</div>';
+
+    } else {
+
+      elemento.innerHTML =
+
+        '<div class="retiro">📤 Retiro: -$' +
+        movimiento.monto.toFixed(2) +
+        '</div>' +
+
+        '<div>' +
+        movimiento.concepto +
+        '</div>' +
+
+        '<div>Método: ' +
+        movimiento.metodo +
+        '</div>' +
+
+        '<div class="fecha">' +
+        movimiento.fecha +
+        '</div>';
+
+    }
 
 
     lista.appendChild(elemento);
@@ -254,6 +303,3 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 </script>
-
-</body>
-</html>
