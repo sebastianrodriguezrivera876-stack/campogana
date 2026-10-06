@@ -219,6 +219,20 @@
   </a>
 </div>
 
+        <div class="tarjetas">
+
+  <div class="tarjeta">
+    <h3>📥 Total ganado</h3>
+    <div class="valor" id="totalGanado">$0.00</div>
+  </div>
+
+  <div class="tarjeta">
+    <h3>📤 Total retirado</h3>
+    <div class="valor" id="totalRetirado">$0.00</div>
+  </div>
+
+</div>
+        
   </a>
 </div>
 
@@ -280,6 +294,21 @@
 
   document.getElementById("ganancias").textContent =
     "$" + ganancias.toFixed(2);
+    
+    const retiros =
+  JSON.parse(localStorage.getItem("retiros")) || [];
+
+let totalRetirado = 0;
+
+retiros.forEach(function (retiro) {
+  totalRetirado += parseFloat(retiro.monto) || 0;
+});
+
+document.getElementById("totalGanado").textContent =
+  "$" + ganancias.toFixed(2);
+
+document.getElementById("totalRetirado").textContent =
+  "$" + totalRetirado.toFixed(2);
 
   const actividad = document.getElementById("actividad");
 
