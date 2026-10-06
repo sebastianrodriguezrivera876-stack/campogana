@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Retirar dinero - CampoGana</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -33,146 +37,196 @@
       color: #22c55e;
     }
 
-    .volver {
+    header a {
       color: white;
       text-decoration: none;
     }
 
     .contenedor {
-      max-width: 500px;
-      margin: 50px auto;
+      max-width: 600px;
+      margin: 40px auto;
       padding: 20px;
     }
 
-    .caja {
+    .tarjeta {
       background: #1e293b;
-      padding: 30px;
+      padding: 25px;
       border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
     }
 
     h1 {
       margin-bottom: 10px;
     }
 
-    .saldo {
-      background: #0f172a;
-      padding: 20px;
-      border-radius: 12px;
-      margin: 20px 0;
-      text-align: center;
+    .descripcion {
+      color: #94a3b8;
+      margin-bottom: 25px;
     }
 
-    .saldo span {
-      display: block;
-      font-size: 32px;
-      color: #22c55e;
+    .saldo {
+      background: #14532d;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .saldo small {
+      color: #bbf7d0;
+    }
+
+    .saldo h2 {
       margin-top: 8px;
-      font-weight: bold;
+      color: #4ade80;
     }
 
     label {
       display: block;
+      margin-top: 15px;
       margin-bottom: 8px;
+      font-weight: bold;
     }
 
     input,
     select {
       width: 100%;
       padding: 13px;
-      border-radius: 8px;
       border: none;
-      margin-bottom: 18px;
+      border-radius: 8px;
+      background: #0f172a;
+      color: white;
       font-size: 16px;
     }
 
     button {
       width: 100%;
+      margin-top: 20px;
       padding: 14px;
-      background: #22c55e;
-      color: white;
       border: none;
       border-radius: 8px;
-      font-size: 17px;
-      cursor: pointer;
+      background: #22c55e;
+      color: white;
+      font-size: 16px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     button:hover {
       background: #16a34a;
     }
 
-    #mensaje {
-      margin-top: 20px;
-      text-align: center;
-      font-weight: bold;
+    .cuenta {
+      background: #0f172a;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      line-height: 1.7;
     }
+
+    .resumen {
+      background: #0f172a;
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 20px;
+      line-height: 1.9;
+      display: none;
+    }
+
+    .comision {
+      color: #fbbf24;
+    }
+
+    .recibe {
+      color: #4ade80;
+      font-size: 18px;
+    }
+
+    .enlace {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #4ade80;
+      text-decoration: none;
+    }
+
   </style>
+
 </head>
 
 <body>
 
 <header>
+
   <h2>CampoGana</h2>
-  <a href="panel.html" class="volver">← Volver</a>
+
+  <a href="dashboard.html">
+    ← Volver
+  </a>
+
 </header>
+
 
 <div class="contenedor">
 
-  <div class="caja">
+  <div class="tarjeta">
 
     <h1>📤 Retirar dinero</h1>
 
-    <p>Solicita el retiro de tu saldo disponible.</p>
-    
-    <div style="text-align: center; margin: 20px 0;">
-  <a href="cuenta-retiro.html"
-     style="
-       color: #22c55e;
-       text-decoration: none;
-       font-weight: bold;
-     ">
-    💳 Configurar cuenta de retiro
-  </a>
-</div>
+    <p class="descripcion">
+      Solicita tu retiro en bolivianos.
+    </p>
+
 
     <div class="saldo">
-      Saldo disponible
-      <span id="saldo">$0.00</span>
+
+      <small>Saldo disponible</small>
+
+      <h2 id="saldo">
+        100.00 Bs
+      </h2>
+
     </div>
-    
-<div id="datosCuenta"
-     style="
-       background: #0f172a;
-       padding: 15px;
-       border-radius: 10px;
-       margin-bottom: 20px;
-     ">
-</div>
-    
-    <label for="monto">Monto a retirar</label>
+
+
+    <div class="cuenta">
+
+      <strong>🏦 Cuenta de retiro</strong>
+
+      <div id="datosCuenta">
+        No tienes una cuenta de retiro registrada.
+      </div>
+
+    </div>
+
+
+    <a
+      href="cuenta-retiro.html"
+      class="enlace"
+    >
+      ⚙️ Configurar cuenta de retiro
+    </a>
+
+
+    <label for="monto">
+      💵 Monto a retirar
+    </label>
 
     <input
-  type="number"
-  id="monto"
-  placeholder="Ej. 100"
-  min="1"
-  oninput="calcularComision()"
->
+      type="number"
+      id="monto"
+      placeholder="Ej. 100 Bs"
+      min="1"
+      step="0.01"
+      oninput="calcularComision()"
+    >
 
-    <label for="metodo">Método de retiro</label>
-<div id="resumenRetiro"
-     style="
-       background:#0f172a;
-       padding:15px;
-       border-radius:10px;
-       margin:20px 0;
-       line-height:1.8;
-       display:none;
-     ">
-</div>
-    
+
+    <label for="metodo">
+      💳 Método de retiro
+    </label>
+
     <select id="metodo">
+
       <option value="Transferencia bancaria">
         Transferencia bancaria
       </option>
@@ -184,110 +238,285 @@
       <option value="Billetera digital">
         Billetera digital
       </option>
+
     </select>
 
-    <button onclick="retirarDinero()">
-      Retirar dinero
-    </button>
 
-    <div id="mensaje"></div>
+    <div
+      class="resumen"
+      id="resumenRetiro"
+    >
+    </div>
+
+
+    <button onclick="registrarRetiro()">
+
+      📤 Registrar solicitud de retiro
+
+    </button>
 
   </div>
 
 </div>
 
+
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
 
-  const usuario = localStorage.getItem("usuario");
+    const usuario =
+      localStorage.getItem("usuario");
 
-  if (!usuario) {
-    window.location.href = "index.html";
+    if (!usuario) {
+
+      window.location.href =
+        "index.html";
+
+      return;
+
+    }
+
+    mostrarSaldo();
+
+    mostrarCuenta();
+
+  }
+);
+
+
+function mostrarSaldo() {
+
+  const saldo =
+    parseFloat(
+      localStorage.getItem("saldo")
+    ) || 100;
+
+  document.getElementById(
+    "saldo"
+  ).textContent =
+    saldo.toFixed(2) + " Bs";
+
+}
+
+
+function mostrarCuenta() {
+
+  const cuenta =
+    JSON.parse(
+      localStorage.getItem(
+        "cuentaRetiro"
+      )
+    );
+
+  const datos =
+    document.getElementById(
+      "datosCuenta"
+    );
+
+  if (!cuenta) {
+
+    datos.innerHTML =
+      "No tienes una cuenta de retiro registrada.";
+
     return;
+
   }
 
-  actualizarSaldo();
-  
-function mostrarCuenta() {
+  datos.innerHTML =
+
+    "<strong>" +
+    cuenta.nombre +
+    "</strong><br>" +
+
+    "📱 " +
+    cuenta.telefono +
+    "<br>" +
+
+    "💳 " +
+    cuenta.metodo +
+    "<br>" +
+
+    "🔢 " +
+    cuenta.cuenta;
+
+}
+
 
 function calcularComision() {
 
   const monto =
     parseFloat(
-      document.getElementById("monto").value
+      document.getElementById(
+        "monto"
+      ).value
     ) || 0;
 
   const resumen =
-    document.getElementById("resumenRetiro");
+    document.getElementById(
+      "resumenRetiro"
+    );
 
   if (monto <= 0) {
 
-    resumen.style.display = "none";
+    resumen.style.display =
+      "none";
 
     return;
+
   }
 
   const comision =
     monto * 0.10;
 
-  const usuarioRecibe =
+  const recibe =
     monto - comision;
 
-  resumen.style.display = "block";
+  resumen.style.display =
+    "block";
 
   resumen.innerHTML =
 
-    "<strong>Resumen del retiro</strong><br><br>" +
+    "<strong>📋 Resumen del retiro</strong><br><br>" +
 
     "💵 Monto solicitado: <strong>" +
     monto.toFixed(2) +
     " Bs</strong><br>" +
 
+    "<span class='comision'>" +
+
     "📉 Comisión CampoGana (10%): <strong>" +
     comision.toFixed(2) +
-    " Bs</strong><br>" +
+    " Bs</strong>" +
+
+    "</span><br>" +
+
+    "<span class='recibe'>" +
 
     "✅ Usuario recibe: <strong>" +
-    usuarioRecibe.toFixed(2) +
-    " Bs</strong>";
+    recibe.toFixed(2) +
+    " Bs</strong>" +
+
+    "</span>";
+
 }
 
-function retirarDinero() {
+
+function registrarRetiro() {
 
   const monto =
-    parseFloat(document.getElementById("monto").value);
+    parseFloat(
+      document.getElementById(
+        "monto"
+      ).value
+    );
 
   const metodo =
-    document.getElementById("metodo").value;
-
-  const mensaje =
-    document.getElementById("mensaje");
+    document.getElementById(
+      "metodo"
+    ).value;
 
   const saldo =
-    parseFloat(localStorage.getItem("saldo")) || 0;
+    parseFloat(
+      localStorage.getItem("saldo")
+    ) || 100;
 
 
   if (!monto || monto <= 0) {
 
-    mensaje.textContent =
-      "❌ Ingresa un monto válido.";
-
-    mensaje.style.color = "red";
+    alert(
+      "❌ Ingresa un monto válido en Bs."
+    );
 
     return;
+
   }
 
 
   if (monto > saldo) {
 
-    mensaje.textContent =
-      "❌ No tienes suficiente saldo.";
-
-    mensaje.style.color = "red";
+    alert(
+      "❌ No tienes suficiente saldo."
+    );
 
     return;
+
   }
+
+
+  const comision =
+    monto * 0.10;
+
+  const recibe =
+    monto - comision;
+
+
+  const confirmar =
+    confirm(
+
+      "¿Confirmar retiro?\n\n" +
+
+      "Monto: " +
+      monto.toFixed(2) +
+      " Bs\n" +
+
+      "Comisión CampoGana (10%): " +
+      comision.toFixed(2) +
+      " Bs\n" +
+
+      "Usuario recibe: " +
+      recibe.toFixed(2) +
+      " Bs"
+
+    );
+
+
+  if (!confirmar) {
+
+    return;
+
+  }
+
+
+  const retiros =
+    JSON.parse(
+      localStorage.getItem(
+        "retiros"
+      )
+    ) || [];
+
+
+  retiros.push({
+
+    monto:
+      monto.toFixed(2),
+
+    comision:
+      comision.toFixed(2),
+
+    montoRecibido:
+      recibe.toFixed(2),
+
+    metodo:
+      metodo,
+
+    estado:
+      "Pendiente",
+
+    fecha:
+      new Date().toLocaleString()
+
+  });
+
+
+  localStorage.setItem(
+
+    "retiros",
+
+    JSON.stringify(retiros)
+
+  );
 
 
   const nuevoSaldo =
@@ -295,51 +524,41 @@ function retirarDinero() {
 
 
   localStorage.setItem(
+
     "saldo",
+
     nuevoSaldo.toFixed(2)
+
   );
 
 
-  let retiros =
-    JSON.parse(localStorage.getItem("retiros")) || [];
+  alert(
 
+    "✅ Solicitud registrada.\n\n" +
 
-  const retiro = {
+    "Monto: " +
+    monto.toFixed(2) +
+    " Bs\n" +
 
-    monto: monto.toFixed(2),
+    "Comisión: " +
+    comision.toFixed(2) +
+    " Bs\n" +
 
-    metodo: metodo,
+    "Usuario recibe: " +
+    recibe.toFixed(2) +
+    " Bs\n\n" +
 
-    fecha: new Date().toLocaleString(),
+    "Estado: Pendiente"
 
-    saldoDespues: nuevoSaldo.toFixed(2)
-
-  };
-
-
-  retiros.push(retiro);
-
-
-  localStorage.setItem(
-    "retiros",
-    JSON.stringify(retiros)
   );
 
 
-  mensaje.textContent =
-    "✅ Retiro registrado correctamente.";
-
-  mensaje.style.color = "#22c55e";
-
-
-  actualizarSaldo();
-
-
-  document.getElementById("monto").value = "";
+  window.location.reload();
 
 }
 
 </script>
 
 </body>
+
 </html>
