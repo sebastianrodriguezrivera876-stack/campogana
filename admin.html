@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Administración - CampoGana</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #111827;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1f2937;
+    }
+
+    header h2 {
+      color: #22c55e;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .contenedor {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .descripcion {
+      color: #94a3b8;
+      margin-bottom: 30px;
+    }
+
+    .estadisticas {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .tarjeta {
+      background: #1e293b;
+      padding: 22px;
+      border-radius: 14px;
+    }
+
+    .tarjeta h3 {
+      color: #cbd5e1;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .numero {
+      font-size: 28px;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    .seccion {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 14px;
+      margin-bottom: 25px;
+    }
+
+    .seccion h2 {
+      margin-bottom: 20px;
+    }
+
+    .fila {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid #334155;
+    }
+
+    .fila:last-child {
+      border-bottom: none;
+    }
+
+    .estado {
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: #854d0e;
+      color: #fde68a;
+      font-size: 13px;
+    }
+
+    .boton {
+      display: inline-block;
+      background: #22c55e;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 800px) {
+
+      .estadisticas {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
+    @media (max-width: 500px) {
+
+      .estadisticas {
+        grid-template-columns: 1fr;
+      }
+
+      .fila {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <h2>CampoGana Admin</h2>
+
+  <a href="index.html">
+    ← Salir
+  </a>
+
+</header>
+
+
+<div class="contenedor">
+
+  <h1>🛠️ Panel de administración</h1>
+
+  <p class="descripcion">
+    Control y seguimiento de la plataforma CampoGana.
+  </p>
+
+
+  <div class="estadisticas">
+
+    <div class="tarjeta">
+
+      <h3>👥 Usuarios</h3>
+
+      <div class="numero" id="usuarios">
+        0
+      </div>
+
+    </div>
+
+
+    <div class="tarjeta">
+
+      <h3>💰 Ganancias</h3>
+
+      <div class="numero" id="ganancias">
+        $0.00
+      </div>
+
+    </div>
+
+
+    <div class="tarjeta">
+
+      <h3>📤 Retiros</h3>
+
+      <div class="numero" id="retiros">
+        $0.00
+      </div>
+
+    </div>
+
+
+    <div class="tarjeta">
+
+      <h3>⏳ Pendientes</h3>
+
+      <div class="numero" id="pendientes">
+        0
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="seccion">
+
+    <h2>📤 Solicitudes de retiro</h2>
+
+    <div id="listaRetiros">
+
+      <p style="color:#94a3b8;">
+        No hay solicitudes registradas.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="seccion">
+
+    <h2>👥 Usuarios registrados</h2>
+
+    <div id="listaUsuarios">
+
+      <p style="color:#94a3b8;">
+        No hay usuarios registrados.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+  const usuario =
+    localStorage.getItem("usuario");
+
+
+  if (!usuario) {
+
+    window.location.href =
+      "index.html";
+
+    return;
+
+  }
+
+
+  cargarDatos();
+
+});
+
+
+function cargarDatos() {
+
+
+  const usuario =
+    JSON.parse(
+      localStorage.getItem("usuario")
+    );
+
+
+  const listaUsuarios =
+    document.getElementById(
+      "listaUsuarios"
+    );
+
+
+  if (usuario) {
+
+    document.getElementById(
+      "usuarios"
+    ).textContent = "1";
+
+
+    listaUsuarios.innerHTML =
+
+      '<div class="fila">' +
+
+      '<div>' +
+
+      '<strong>' +
+      usuario.nombre +
+      '</strong><br>' +
+
+      '<small>' +
+      usuario.correo +
+      '</small>' +
+
+      '</div>' +
+
+      '<span class="estado">' +
+      'Activo' +
+      '</span>' +
+
+      '</div>';
+
+  }
+
+
+  const ganancias =
+    parseFloat(
+      localStorage.getItem("ganancias")
+    ) || 0;
+
+
+  document.getElementById(
+    "ganancias"
+  ).textContent =
+    "$" + ganancias.toFixed(2);
+
+
+  const retiros =
+    JSON.parse(
+      localStorage.getItem("retiros")
+    ) || [];
+
+
+  let totalRetiros = 0;
+
+  let pendientes = 0;
+
+
+  retiros.forEach(function (retiro) {
+
+    totalRetiros +=
+      parseFloat(retiro.monto) || 0;
+
+
+    if (
+      !retiro.estado ||
+      retiro.estado === "Pendiente"
+    ) {
+
+      pendientes++;
+
+    }
+
+  });
+
+
+  document.getElementById(
+    "retiros"
+  ).textContent =
+    "$" + totalRetiros.toFixed(2);
+
+
+  document.getElementById(
+    "pendientes"
+  ).textContent =
+    pendientes;
+
+
+  const listaRetiros =
+    document.getElementById(
+      "listaRetiros"
+    );
+
+
+  if (retiros.length === 0) {
+
+    return;
+
+  }
+
+
+  listaRetiros.innerHTML = "";
+
+
+  retiros.slice().reverse().forEach(
+    function (retiro) {
+
+      const fila =
+        document.createElement("div");
+
+
+      fila.className =
+        "fila";
+
+
+      fila.innerHTML =
+
+        '<div>' +
+
+        '<strong>📤 Retiro de $' +
+        parseFloat(retiro.monto).toFixed(2) +
+        '</strong><br>' +
+
+        '<small>' +
+        (retiro.metodo || "Sin método") +
+        '<br>' +
+        (retiro.fecha || "") +
+        '</small>' +
+
+        '</div>' +
+
+        '<span class="estado">' +
+
+        (retiro.estado || "Pendiente") +
+
+        '</span>';
+
+
+      listaRetiros.appendChild(
+        fila
+      );
+
+    }
+  );
+
+}
+
+</script>
+
+</body>
+</html>
