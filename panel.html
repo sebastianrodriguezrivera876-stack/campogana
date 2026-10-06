@@ -286,15 +286,7 @@
   const ganancias =
     parseFloat(localStorage.getItem("ganancias")) || 0;
 
-  document.getElementById("saldo").textContent =
-    "$" + saldo.toFixed(2);
-
-  document.getElementById("tareas").textContent =
-    tareas;
-
-  document.getElementById("ganancias").textContent =
-    "$" + ganancias.toFixed(2);
-    
+     
     const retiros =
   JSON.parse(localStorage.getItem("retiros")) || [];
 
@@ -310,6 +302,16 @@ document.getElementById("totalGanado").textContent =
 document.getElementById("totalRetirado").textContent =
   "$" + totalRetirado.toFixed(2);
 
+
+  document.getElementById("saldo").textContent =
+    "$" + saldo.toFixed(2);
+
+  document.getElementById("tareas").textContent =
+    tareas;
+
+  document.getElementById("ganancias").textContent =
+    "$" + ganancias.toFixed(2);
+   
   const actividad = document.getElementById("actividad");
 
   if (tareas > 0) {
