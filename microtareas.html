@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microtareas - CampoGana</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #07111f;
+      color: white;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 7%;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    .volver {
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border: 1px solid #334155;
+      border-radius: 8px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    .subtitulo {
+      color: #94a3b8;
+      margin-bottom: 30px;
+    }
+
+    .tareas {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .tarea {
+      background: #0f1b2d;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      padding: 25px;
+    }
+
+    .tarea h2 {
+      margin-bottom: 12px;
+    }
+
+    .tarea p {
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .recompensa {
+      color: #22c55e;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .boton {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #22c55e;
+      color: #04110a;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .boton:hover {
+      background: #16a34a;
+    }
+
+    @media (max-width: 800px) {
+      .tareas {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      CampoGana
+    </div>
+
+    <a href="dashboard.html" class="volver">
+      ← Volver
+    </a>
+
+  </header>
+
+  <main>
+
+    <h1>💼 Microtareas disponibles</h1>
+
+    <p class="subtitulo">
+      Encuentra tareas disponibles y obtén recompensas.
+    </p>
+
+    <section class="tareas">
+
+      <div class="tarea">
+
+        <h2>📋 Encuesta</h2>
+
+        <p>
+          Responde una encuesta y comparte tu opinión.
+        </p>
+
+        <div class="recompensa">
+          + $0.50
+        </div>
+
+        <button class="boton" onclick="realizarTarea()">
+          Realizar tarea
+        </button>
+
+      </div>
+
+      <div class="tarea">
+
+        <h2>🔎 Revisar información</h2>
+
+        <p>
+          Revisa información básica y ayuda a mejorar los datos.
+        </p>
+
+        <div class="recompensa">
+          + $0.75
+        </div>
+
+        <button class="boton" onclick="realizarTarea()">
+          Realizar tarea
+        </button>
+
+      </div>
+
+      <div class="tarea">
+
+        <h2>⭐ Valorar contenido</h2>
+
+        <p>
+          Realiza una valoración sencilla sobre un contenido.
+        </p>
+
+        <div class="recompensa">
+          + $1.00
+        </div>
+
+        <button class="boton" onclick="realizarTarea()">
+          Realizar tarea
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+
+    const usuarioGuardado = localStorage.getItem("usuario");
+
+    if (!usuarioGuardado) {
+      window.location.href = "login.html";
+    }
+
+    function realizarTarea() {
+      alert("Esta tarea estará disponible próximamente.");
+    }
+
+  </script>
+
+</body>
+</html>
