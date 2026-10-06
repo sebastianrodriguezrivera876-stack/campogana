@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel principal</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h2 {
+      font-size: 21px;
+    }
+
+    .salir {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .bienvenida {
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    .bienvenida h1 {
+      margin-bottom: 10px;
+    }
+
+    .bienvenida p {
+      color: #6b7280;
+    }
+
+    .tarjetas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .tarjeta {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .tarjeta h3 {
+      margin-bottom: 10px;
+      color: #2563eb;
+    }
+
+    .tarjeta p {
+      color: #6b7280;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h2>Mi Aplicación</h2>
+    <button class="salir" onclick="cerrarSesion()">Cerrar sesión</button>
+  </header>
+
+  <main>
+
+    <section class="bienvenida">
+      <h1 id="saludo">Bienvenido</h1>
+      <p>
+        Este es tu panel principal. Desde aquí podrás acceder a las diferentes funciones de la aplicación.
+      </p>
+    </section>
+
+    <section class="tarjetas">
+
+      <div class="tarjeta">
+        <h3>👤 Mi perfil</h3>
+        <p>
+          Consulta y administra la información de tu cuenta.
+        </p>
+      </div>
+
+      <div class="tarjeta">
+        <h3>📊 Panel</h3>
+        <p>
+          Aquí podremos agregar las funciones principales de nuestra aplicación.
+        </p>
+      </div>
+
+      <div class="tarjeta">
+        <h3>⚙️ Configuración</h3>
+        <p>
+          Próximamente podremos agregar opciones de configuración.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    const usuarioGuardado = localStorage.getItem("usuario");
+
+    if (!usuarioGuardado) {
+      window.location.href = "index.html";
+    } else {
+      const usuario = JSON.parse(usuarioGuardado);
+
+      document.getElementById("saludo").textContent =
+        "¡Bienvenido, " + usuario.nombre + "!";
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem("usuario");
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
