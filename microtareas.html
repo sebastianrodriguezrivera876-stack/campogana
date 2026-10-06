@@ -228,6 +228,20 @@
 
     localStorage.setItem("saldo", saldo.toFixed(2));
 
+    let tareas =
+  parseInt(localStorage.getItem("tareasCompletadas")) || 0;
+
+tareas++;
+
+localStorage.setItem("tareasCompletadas", tareas);
+
+let ganancias =
+  parseFloat(localStorage.getItem("ganancias")) || 0;
+
+ganancias += 0.50;
+
+localStorage.setItem("ganancias", ganancias.toFixed(2));
+
     alert(
       "✅ Tarea completada.\n\n" +
       "Has ganado $0.50\n" +
