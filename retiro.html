@@ -198,6 +198,38 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   actualizarSaldo();
+  
+function mostrarCuenta() {
+
+  const datos =
+    JSON.parse(
+      localStorage.getItem("cuentaRetiro")
+    );
+
+  const contenedor =
+    document.getElementById("datosCuenta");
+
+
+  if (!datos) {
+
+    contenedor.innerHTML =
+      "⚠️ No tienes una cuenta de retiro configurada.<br><br>" +
+      '<a href="cuenta-retiro.html" style="color:#22c55e;">' +
+      "Configurar cuenta de retiro" +
+      "</a>";
+
+    return;
+  }
+
+
+  contenedor.innerHTML =
+    "<strong>💳 Datos de retiro</strong><br><br>" +
+    "👤 " + datos.nombre + "<br>" +
+    "📱 " + datos.telefono + "<br>" +
+    "🏦 " + datos.metodo + "<br>" +
+    "💳 " + datos.cuenta;
+}
+  
 
 });
 
