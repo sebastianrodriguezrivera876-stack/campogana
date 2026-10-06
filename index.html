@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampoGana</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #07111f;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 7%;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: auto;
+      padding: 100px 25px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 55px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #22c55e;
+    }
+
+    .hero p {
+      color: #94a3b8;
+      font-size: 19px;
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .buttons {
+      margin-top: 35px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 25px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 5px;
+    }
+
+    .primary {
+      background: #22c55e;
+      color: #04110a;
+    }
+
+    .secondary {
+      border: 1px solid #334155;
+      color: white;
+    }
+
+    .features {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px 25px 80px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: #0f1b2d;
+      border: 1px solid #1e293b;
+      padding: 30px;
+      border-radius: 18px;
+    }
+
+    .card h2 {
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #1e293b;
+      color: #64748b;
+    }
+
+    @media (max-width: 700px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">CampoGana</div>
+
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="#funciones">Funciones</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Gana con <span>CampoGana</span></h1>
+
+    <p>
+      Una plataforma para realizar microtareas, obtener recompensas
+      y encontrar oportunidades de trabajo de manera sencilla.
+    </p>
+
+    <div class="buttons">
+      <a href="#" class="btn primary">Crear cuenta</a>
+      <a href="#" class="btn secondary">Iniciar sesión</a>
+    </div>
+  </section>
+
+  <section class="features" id="funciones">
+
+    <div class="card">
+      <h2>💼 Microtareas</h2>
+      <p>
+        Encuentra tareas disponibles y participa en diferentes
+        actividades para obtener recompensas.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>💰 Recompensas</h2>
+      <p>
+        Consulta tus ganancias y lleva un registro de las
+        recompensas obtenidas dentro de la plataforma.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>📊 Transacciones</h2>
+      <p>
+        Visualiza tus movimientos y mantén organizado
+        el historial de tu cuenta.
+      </p>
+    </div>
+
+  </section>
+
+  <footer id="contacto">
+    <p>© 2026 CampoGana. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>
