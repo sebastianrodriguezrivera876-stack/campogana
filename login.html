@@ -15,21 +15,22 @@
 
     body {
       min-height: 100vh;
-      background: #07111f;
-      color: white;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      background: #07111f;
       padding: 20px;
+      color: white;
     }
 
-    .login-box {
+    .login {
       width: 100%;
       max-width: 420px;
       background: #0f1b2d;
       border: 1px solid #1e293b;
-      border-radius: 20px;
       padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
     }
 
     .logo {
@@ -42,24 +43,35 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
+    }
+
+    .subtitulo {
+      text-align: center;
+      color: #94a3b8;
+      margin-bottom: 25px;
     }
 
     label {
       display: block;
-      margin-bottom: 8px;
-      color: #cbd5e1;
+      margin-bottom: 7px;
+      font-weight: bold;
     }
 
     input {
       width: 100%;
-      padding: 14px;
-      margin-bottom: 20px;
-      border-radius: 10px;
+      padding: 13px;
+      margin-bottom: 18px;
       border: 1px solid #334155;
+      border-radius: 10px;
       background: #07111f;
       color: white;
+      font-size: 15px;
       outline: none;
+    }
+
+    input:focus {
+      border-color: #22c55e;
     }
 
     button {
@@ -69,15 +81,37 @@
       border-radius: 10px;
       background: #22c55e;
       color: #04110a;
-      font-weight: bold;
       font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    .back {
-      display: block;
+    button:hover {
+      background: #16a34a;
+    }
+
+    #mensaje {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .registro {
       text-align: center;
       margin-top: 20px;
+      color: #94a3b8;
+    }
+
+    .registro a {
+      color: #22c55e;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
       color: #94a3b8;
       text-decoration: none;
     }
@@ -86,25 +120,33 @@
 
 <body>
 
-  <div class="login-box">
+  <div class="login">
 
     <div class="logo">CampoGana</div>
 
     <h1>Iniciar sesión</h1>
 
-    <form>
+    <p class="subtitulo">
+      Ingresa a tu cuenta para continuar
+    </p>
 
-      <label>Correo electrónico</label>
+    <form id="loginForm">
+
+      <label for="correo">Correo electrónico</label>
+
       <input
         type="email"
-        placeholder="tu correo electrónico"
+        id="correo"
+        placeholder="ejemplo@gmail.com"
         required
       >
 
-      <label>Contraseña</label>
+      <label for="password">Contraseña</label>
+
       <input
         type="password"
-        placeholder="Tu contraseña"
+        id="password"
+        placeholder="Ingresa tu contraseña"
         required
       >
 
@@ -112,13 +154,22 @@
         Iniciar sesión
       </button>
 
+      <p id="mensaje"></p>
+
     </form>
 
-    <a class="back" href="index.html">
+    <p class="registro">
+      ¿No tienes una cuenta?
+      <a href="registro.html">Crear cuenta</a>
+    </p>
+
+    <a href="index.html" class="volver">
       ← Volver al inicio
     </a>
 
   </div>
+
+  <script src="login.js"></script>
 
 </body>
 </html>
