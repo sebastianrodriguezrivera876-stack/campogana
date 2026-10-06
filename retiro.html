@@ -153,12 +153,12 @@
     <label for="monto">Monto a retirar</label>
 
     <input
-      type="number"
-      id="monto"
-      placeholder="Ej. 5.00"
-      min="0.01"
-      step="0.01"
-    >
+  type="number"
+  id="monto"
+  placeholder="Ej. 100"
+  min="1"
+  oninput="calcularComision()"
+>
 
     <label for="metodo">Método de retiro</label>
 <div id="resumenRetiro"
@@ -211,48 +211,47 @@ document.addEventListener("DOMContentLoaded", function () {
   
 function mostrarCuenta() {
 
-  const datos =
-    JSON.parse(
-      localStorage.getItem("cuentaRetiro")
-    );
+function calcularComision() {
 
-  const contenedor =
-    document.getElementById("datosCuenta");
+  const monto =
+    parseFloat(
+      document.getElementById("monto").value
+    ) || 0;
 
+  const resumen =
+    document.getElementById("resumenRetiro");
 
-  if (!datos) {
+  if (monto <= 0) {
 
-    contenedor.innerHTML =
-      "⚠️ No tienes una cuenta de retiro configurada.<br><br>" +
-      '<a href="cuenta-retiro.html" style="color:#22c55e;">' +
-      "Configurar cuenta de retiro" +
-      "</a>";
+    resumen.style.display = "none";
 
     return;
   }
 
+  const comision =
+    monto * 0.10;
 
-  contenedor.innerHTML =
-    "<strong>💳 Datos de retiro</strong><br><br>" +
-    "👤 " + datos.nombre + "<br>" +
-    "📱 " + datos.telefono + "<br>" +
-    "🏦 " + datos.metodo + "<br>" +
-    "💳 " + datos.cuenta;
+  const usuarioRecibe =
+    monto - comision;
+
+  resumen.style.display = "block";
+
+  resumen.innerHTML =
+
+    "<strong>Resumen del retiro</strong><br><br>" +
+
+    "💵 Monto solicitado: <strong>" +
+    monto.toFixed(2) +
+    " Bs</strong><br>" +
+
+    "📉 Comisión CampoGana (10%): <strong>" +
+    comision.toFixed(2) +
+    " Bs</strong><br>" +
+
+    "✅ Usuario recibe: <strong>" +
+    usuarioRecibe.toFixed(2) +
+    " Bs</strong>";
 }
-  
-
-});
-
-
-function actualizarSaldo() {
-
-  const saldo =
-    parseFloat(localStorage.getItem("saldo")) || 0;
-
-  document.getElementById("saldo").textContent =
-    "$" + saldo.toFixed(2);
-}
-
 
 function retirarDinero() {
 
