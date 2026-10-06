@@ -211,59 +211,59 @@
 
   <script>
 
+    document.addEventListener("DOMContentLoaded", function () 
+
     const usuarioGuardado =
       localStorage.getItem("usuario");
 
 
-    if (!usuarioGuardado) {
+   if (!usuarioGuardado) {
+    window.location.href = "index.html";
+    return;
+  }
 
-      window.location.href = "login.html";
+  const usuario = JSON.parse(usuarioGuardado);
 
-    } else {
+  document.getElementById("saludo").textContent =
+    "Bienvenido nuevamente, " + usuario.nombre + ".";
 
-      const usuario =
-        JSON.parse(usuarioGuardado);
+  const saldo =
+    parseFloat(localStorage.getItem("saldo")) || 0;
 
-      document.getElementById("saludo").textContent =
-        "Bienvenido nuevamente, " + usuario.nombre + ".";
+  const tareas =
+    parseInt(localStorage.getItem("tareasCompletadas")) || 0;
 
+  const ganancias =
+    parseFloat(localStorage.getItem("ganancias")) || 0;
 
-      const saldo =
-        parseFloat(localStorage.getItem("saldo")) || 0;
+  document.getElementById("saldo").textContent =
+    "$" + saldo.toFixed(2);
 
+  document.getElementById("tareas").textContent =
+    tareas;
 
-      const tareas =
-        parseInt(localStorage.getItem("tareasCompletadas")) || 0;
+  document.getElementById("ganancias").textContent =
+    "$" + ganancias.toFixed(2);
 
+  const actividad = document.getElementById("actividad");
 
-      const ganancias =
-        parseFloat(localStorage.getItem("ganancias")) || 0;
+  if (tareas > 0) {
 
+    actividad.textContent =
+      "Has completado " +
+      tareas +
+      " microtarea(s) y has ganado $" +
+      ganancias.toFixed(2) +
+      ".";
 
-      document.getElementById("saldo").textContent =
-        "$" + saldo.toFixed(2);
+  } else {
 
+    actividad.textContent =
+      "Todavía no tienes actividades registradas.";
 
-      document.getElementById("tareas").textContent =
-        tareas;
+  }
 
-
-      document.getElementById("ganancias").textContent =
-        "$" + ganancias.toFixed(2);
-
-
-      if (tareas > 0) {
-
-        document.getElementById("actividad").textContent =
-          "✅ Has completado " +
-          tareas +
-          " microtarea(s) y has ganado $" +
-          ganancias.toFixed(2) +
-          ".";
-
-      }
-
-    }
+});
 
   </script>
 
