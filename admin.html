@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Administración - CampoGana</title>
+  <title>Admin - CampoGana</title>
 
   <style>
     * {
@@ -90,10 +90,7 @@
     }
 
     .fila {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 0;
+      padding: 18px 0;
       border-bottom: 1px solid #334155;
     }
 
@@ -101,45 +98,76 @@
       border-bottom: none;
     }
 
+    .informacion {
+      margin-bottom: 15px;
+      line-height: 1.7;
+    }
+
     .estado {
+      display: inline-block;
       padding: 6px 10px;
       border-radius: 6px;
       background: #854d0e;
       color: #fde68a;
       font-size: 13px;
+      margin-bottom: 12px;
     }
 
-    .boton {
-      display: inline-block;
-      background: #22c55e;
-      color: white;
-      padding: 12px 18px;
+    .estado.aprobado {
+      background: #166534;
+      color: #bbf7d0;
+    }
+
+    .estado.rechazado {
+      background: #991b1b;
+      color: #fecaca;
+    }
+
+    .botones {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      padding: 11px 16px;
       border-radius: 8px;
-      text-decoration: none;
+      color: white;
       font-weight: bold;
-      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .aprobar {
+      background: #16a34a;
+    }
+
+    .rechazar {
+      background: #dc2626;
+    }
+
+    .aprobar:hover {
+      background: #15803d;
+    }
+
+    .rechazar:hover {
+      background: #b91c1c;
+    }
+
+    .vacio {
+      color: #94a3b8;
     }
 
     @media (max-width: 800px) {
-
       .estadisticas {
         grid-template-columns: repeat(2, 1fr);
       }
-
     }
 
     @media (max-width: 500px) {
-
       .estadisticas {
         grid-template-columns: 1fr;
       }
-
-      .fila {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
     }
   </style>
 </head>
@@ -166,53 +194,34 @@
   </p>
 
 
+  <!-- ESTADÍSTICAS -->
+
   <div class="estadisticas">
 
     <div class="tarjeta">
-
       <h3>👥 Usuarios</h3>
-
-      <div class="numero" id="usuarios">
-        0
-      </div>
-
+      <div class="numero" id="usuarios">0</div>
     </div>
 
-
     <div class="tarjeta">
-
       <h3>💰 Ganancias</h3>
-
-      <div class="numero" id="ganancias">
-        $0.00
-      </div>
-
+      <div class="numero" id="ganancias">$0.00</div>
     </div>
 
-
     <div class="tarjeta">
-
       <h3>📤 Retiros</h3>
-
-      <div class="numero" id="retiros">
-        $0.00
-      </div>
-
+      <div class="numero" id="retiros">$0.00</div>
     </div>
 
-
     <div class="tarjeta">
-
       <h3>⏳ Pendientes</h3>
-
-      <div class="numero" id="pendientes">
-        0
-      </div>
-
+      <div class="numero" id="pendientes">0</div>
     </div>
 
   </div>
 
+
+  <!-- SOLICITUDES -->
 
   <div class="seccion">
 
@@ -220,7 +229,7 @@
 
     <div id="listaRetiros">
 
-      <p style="color:#94a3b8;">
+      <p class="vacio">
         No hay solicitudes registradas.
       </p>
 
@@ -229,13 +238,15 @@
   </div>
 
 
+  <!-- USUARIOS -->
+
   <div class="seccion">
 
     <h2>👥 Usuarios registrados</h2>
 
     <div id="listaUsuarios">
 
-      <p style="color:#94a3b8;">
+      <p class="vacio">
         No hay usuarios registrados.
       </p>
 
@@ -250,20 +261,15 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-
   const usuario =
     localStorage.getItem("usuario");
 
-
   if (!usuario) {
 
-    window.location.href =
-      "index.html";
+    window.location.href = "index.html";
 
     return;
-
   }
-
 
   cargarDatos();
 
@@ -272,12 +278,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function cargarDatos() {
 
-
   const usuario =
     JSON.parse(
       localStorage.getItem("usuario")
     );
 
+
+  /* USUARIO */
 
   const listaUsuarios =
     document.getElementById(
@@ -296,7 +303,7 @@ function cargarDatos() {
 
       '<div class="fila">' +
 
-      '<div>' +
+      '<div class="informacion">' +
 
       '<strong>' +
       usuario.nombre +
@@ -308,7 +315,7 @@ function cargarDatos() {
 
       '</div>' +
 
-      '<span class="estado">' +
+      '<span class="estado aprobado">' +
       'Activo' +
       '</span>' +
 
@@ -316,6 +323,8 @@ function cargarDatos() {
 
   }
 
+
+  /* GANANCIAS */
 
   const ganancias =
     parseFloat(
@@ -328,6 +337,8 @@ function cargarDatos() {
   ).textContent =
     "$" + ganancias.toFixed(2);
 
+
+  /* RETIROS */
 
   const retiros =
     JSON.parse(
@@ -370,7 +381,16 @@ function cargarDatos() {
     pendientes;
 
 
-  const listaRetiros =
+  mostrarRetiros(retiros);
+
+}
+
+
+/* MOSTRAR RETIROS */
+
+function mostrarRetiros(retiros) {
+
+  const lista =
     document.getElementById(
       "listaRetiros"
     );
@@ -378,54 +398,202 @@ function cargarDatos() {
 
   if (retiros.length === 0) {
 
-    return;
+    lista.innerHTML =
+      '<p class="vacio">' +
+      'No hay solicitudes registradas.' +
+      '</p>';
 
+    return;
   }
 
 
-  listaRetiros.innerHTML = "";
+  lista.innerHTML = "";
 
 
   retiros.slice().reverse().forEach(
-    function (retiro) {
+    function (retiro, indice) {
+
+      const posicion =
+        retiros.length - 1 - indice;
+
+
+      const estado =
+        retiro.estado ||
+        "Pendiente";
+
 
       const fila =
         document.createElement("div");
 
 
-      fila.className =
-        "fila";
+      fila.className = "fila";
+
+
+      let botones = "";
+
+
+      if (estado === "Pendiente") {
+
+        botones =
+
+          '<div class="botones">' +
+
+          '<button class="aprobar" ' +
+
+          'onclick="aprobarRetiro(' +
+          posicion +
+          ')">' +
+
+          '✅ Aprobar' +
+
+          '</button>' +
+
+
+          '<button class="rechazar" ' +
+
+          'onclick="rechazarRetiro(' +
+          posicion +
+          ')">' +
+
+          '❌ Rechazar' +
+
+          '</button>' +
+
+          '</div>';
+
+      }
+
+
+      let claseEstado = "";
+
+
+      if (estado === "Aprobado") {
+
+        claseEstado = "aprobado";
+
+      }
+
+
+      if (estado === "Rechazado") {
+
+        claseEstado = "rechazado";
+
+      }
 
 
       fila.innerHTML =
 
-        '<div>' +
+        '<div class="informacion">' +
 
         '<strong>📤 Retiro de $' +
-        parseFloat(retiro.monto).toFixed(2) +
+
+        (parseFloat(retiro.monto) || 0)
+        .toFixed(2) +
+
         '</strong><br>' +
 
         '<small>' +
-        (retiro.metodo || "Sin método") +
+
+        'Método: ' +
+        (retiro.metodo ||
+        "Sin método") +
+
         '<br>' +
+
+        'Fecha: ' +
         (retiro.fecha || "") +
+
         '</small>' +
 
         '</div>' +
 
-        '<span class="estado">' +
 
-        (retiro.estado || "Pendiente") +
+        '<span class="estado ' +
+        claseEstado +
+        '">' +
 
-        '</span>';
+        estado +
+
+        '</span>' +
 
 
-      listaRetiros.appendChild(
-        fila
-      );
+        botones;
+
+
+      lista.appendChild(fila);
 
     }
   );
+
+}
+
+
+/* APROBAR RETIRO */
+
+function aprobarRetiro(indice) {
+
+  const retiros =
+    JSON.parse(
+      localStorage.getItem("retiros")
+    ) || [];
+
+
+  if (!retiros[indice]) {
+    return;
+  }
+
+
+  retiros[indice].estado =
+    "Aprobado";
+
+
+  localStorage.setItem(
+    "retiros",
+    JSON.stringify(retiros)
+  );
+
+
+  alert(
+    "✅ Retiro aprobado correctamente."
+  );
+
+
+  cargarDatos();
+
+}
+
+
+/* RECHAZAR RETIRO */
+
+function rechazarRetiro(indice) {
+
+  const retiros =
+    JSON.parse(
+      localStorage.getItem("retiros")
+    ) || [];
+
+
+  if (!retiros[indice]) {
+    return;
+  }
+
+
+  retiros[indice].estado =
+    "Rechazado";
+
+
+  localStorage.setItem(
+    "retiros",
+    JSON.stringify(retiros)
+  );
+
+
+  alert(
+    "❌ Retiro rechazado."
+  );
+
+
+  cargarDatos();
 
 }
 
