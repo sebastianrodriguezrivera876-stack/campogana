@@ -206,7 +206,32 @@
     }
 
     function realizarTarea() {
-      alert("Esta tarea estará disponible próximamente.");
+    function realizarTarea() {
+
+  const respuesta = prompt(
+    "📋 Encuesta\n\n¿Cuál es tu actividad principal?\n\n1. Estudiante\n2. Trabajo\n3. Negocio\n4. Otro"
+  );
+
+  if (respuesta === null) {
+    return;
+  }
+
+  if (
+    respuesta === "1" ||
+    respuesta === "2" ||
+    respuesta === "3" ||
+    respuesta === "4"
+  ) {
+
+    alert("✅ Tarea completada.\n\nHas ganado $0.50");
+
+  } else {
+
+    alert("❌ Respuesta no válida. Escribe 1, 2, 3 o 4.");
+
+  }
+
+
     }
 
   </script>
