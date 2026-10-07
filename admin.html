@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Admin - CampoGana</title>
+  <title>Administrador - CampoGana</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -23,64 +27,88 @@
     header {
       background: #111827;
       padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       border-bottom: 1px solid #1f2937;
     }
 
-    header h2 {
+    header h1 {
       color: #22c55e;
+      margin-bottom: 5px;
     }
 
-    header a {
-      color: white;
-      text-decoration: none;
+    header p {
+      color: #94a3b8;
     }
 
     .contenedor {
       max-width: 1100px;
-      margin: 40px auto;
+      margin: 30px auto;
       padding: 20px;
-    }
-
-    h1 {
-      margin-bottom: 10px;
-    }
-
-    .descripcion {
-      color: #94a3b8;
-      margin-bottom: 30px;
     }
 
     .estadisticas {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+      gap: 15px;
       margin-bottom: 30px;
     }
 
     .tarjeta {
       background: #1e293b;
-      padding: 22px;
+      padding: 20px;
       border-radius: 14px;
     }
 
-    .tarjeta h3 {
-      color: #cbd5e1;
-      font-size: 15px;
-      margin-bottom: 12px;
+    .tarjeta small {
+      color: #94a3b8;
     }
 
-    .numero {
-      font-size: 28px;
+    .tarjeta h2 {
+      margin-top: 10px;
+      color: #4ade80;
+    }
+
+    .comision-admin {
+      background: #14532d;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      border: 1px solid #22c55e;
+    }
+
+    .comision-admin h2 {
+      margin-bottom: 10px;
+    }
+
+    .comision-admin p {
+      color: #bbf7d0;
+      margin-bottom: 15px;
+    }
+
+    .saldo-comision {
+      font-size: 32px;
       font-weight: bold;
-      color: #22c55e;
+      color: #4ade80;
+      margin-bottom: 18px;
+    }
+
+    .boton-retirar {
+      border: none;
+      padding: 13px 20px;
+      border-radius: 8px;
+      background: #22c55e;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .boton-retirar:hover {
+      background: #16a34a;
     }
 
     .seccion {
       background: #1e293b;
-      padding: 25px;
+      padding: 22px;
       border-radius: 14px;
       margin-bottom: 25px;
     }
@@ -89,44 +117,61 @@
       margin-bottom: 20px;
     }
 
-    .fila {
-      padding: 18px 0;
-      border-bottom: 1px solid #334155;
-    }
-
-    .fila:last-child {
-      border-bottom: none;
-    }
-
-    .informacion {
+    .retiro {
+      background: #0f172a;
+      padding: 18px;
+      border-radius: 12px;
       margin-bottom: 15px;
-      line-height: 1.7;
+      line-height: 1.8;
+    }
+
+    .pendiente {
+      border-left: 4px solid #fbbf24;
+    }
+
+    .aprobado {
+      border-left: 4px solid #22c55e;
+    }
+
+    .rechazado {
+      border-left: 4px solid #ef4444;
+    }
+
+    .monto {
+      color: #f87171;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .comision {
+      color: #fbbf24;
+    }
+
+    .recibe {
+      color: #4ade80;
+      font-weight: bold;
     }
 
     .estado {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 6px;
-      background: #854d0e;
-      color: #fde68a;
-      font-size: 13px;
-      margin-bottom: 12px;
+      font-weight: bold;
     }
 
-    .estado.aprobado {
-      background: #166534;
-      color: #bbf7d0;
+    .estado-pendiente {
+      color: #fbbf24;
     }
 
-    .estado.rechazado {
-      background: #991b1b;
-      color: #fecaca;
+    .estado-aprobado {
+      color: #4ade80;
+    }
+
+    .estado-rechazado {
+      color: #f87171;
     }
 
     .botones {
       display: flex;
       gap: 10px;
-      flex-wrap: wrap;
+      margin-top: 15px;
     }
 
     button {
@@ -142,96 +187,180 @@
       background: #16a34a;
     }
 
-    .rechazar {
-      background: #dc2626;
-    }
-
     .aprobar:hover {
       background: #15803d;
+    }
+
+    .rechazar {
+      background: #dc2626;
     }
 
     .rechazar:hover {
       background: #b91c1c;
     }
 
+    .usuario {
+      background: #0f172a;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
     .vacio {
       color: #94a3b8;
+      text-align: center;
+      padding: 25px;
     }
 
     @media (max-width: 800px) {
+
       .estadisticas {
         grid-template-columns: repeat(2, 1fr);
       }
+
     }
 
     @media (max-width: 500px) {
+
       .estadisticas {
         grid-template-columns: 1fr;
       }
+
+      .botones {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
+
 <header>
 
-  <h2>CampoGana Admin</h2>
+  <h1>⚙️ CampoGana - Administración</h1>
 
-  <a href="index.html">
-    ← Salir
-  </a>
+  <p>
+    Panel de control de la plataforma
+  </p>
 
 </header>
 
 
 <div class="contenedor">
 
-  <h1>🛠️ Panel de administración</h1>
-
-  <p class="descripcion">
-    Control y seguimiento de la plataforma CampoGana.
-  </p>
-
 
   <!-- ESTADÍSTICAS -->
 
   <div class="estadisticas">
 
-    <div class="tarjeta">
-      <h3>👥 Usuarios</h3>
-      <div class="numero" id="usuarios">0</div>
-    </div>
 
     <div class="tarjeta">
-      <h3>💰 Ganancias</h3>
-      <div class="numero" id="ganancias">$0.00</div>
+
+      <small>
+        👥 Usuarios
+      </small>
+
+      <h2 id="usuarios">
+        0
+      </h2>
+
     </div>
 
-    <div class="tarjeta">
-      <h3>📤 Retiros</h3>
-      <div class="numero" id="retiros">$0.00</div>
-    </div>
 
     <div class="tarjeta">
-      <h3>⏳ Pendientes</h3>
-      <div class="numero" id="pendientes">0</div>
+
+      <small>
+        💰 Ganancias generadas
+      </small>
+
+      <h2 id="ganancias">
+        0.00 Bs
+      </h2>
+
     </div>
+
+
+    <div class="tarjeta">
+
+      <small>
+        📤 Total retirado
+      </small>
+
+      <h2 id="retiros">
+        0.00 Bs
+      </h2>
+
+    </div>
+
+
+    <div class="tarjeta">
+
+      <small>
+        📉 Comisiones CampoGana
+      </small>
+
+      <h2 id="comisiones">
+        0.00 Bs
+      </h2>
+
+    </div>
+
 
   </div>
 
 
-  <!-- SOLICITUDES -->
+  <!-- SALDO DEL ADMIN -->
+
+  <div class="comision-admin">
+
+    <h2>
+      💰 Mis comisiones
+    </h2>
+
+    <p>
+      Aquí se acumula el 10% de comisión de los retiros aprobados.
+    </p>
+
+    <div
+      class="saldo-comision"
+      id="saldoComision"
+    >
+      0.00 Bs
+    </div>
+
+    <button
+      class="boton-retirar"
+      onclick="retirarComision()"
+    >
+      📤 Retirar comisión
+    </button>
+
+  </div>
+
+
+  <!-- RETIROS -->
 
   <div class="seccion">
 
-    <h2>📤 Solicitudes de retiro</h2>
+    <h2>
+      📤 Solicitudes de retiro
+    </h2>
 
     <div id="listaRetiros">
 
-      <p class="vacio">
-        No hay solicitudes registradas.
-      </p>
+      <div class="vacio">
+        Cargando retiros...
+      </div>
 
     </div>
 
@@ -242,153 +371,129 @@
 
   <div class="seccion">
 
-    <h2>👥 Usuarios registrados</h2>
+    <h2>
+      👥 Usuarios registrados
+    </h2>
 
     <div id="listaUsuarios">
 
-      <p class="vacio">
-        No hay usuarios registrados.
-      </p>
+      <div class="vacio">
+        Cargando usuarios...
+      </div>
 
     </div>
 
   </div>
+
+
+  <!-- RETIROS DEL ADMIN -->
+
+  <div class="seccion">
+
+    <h2>
+      📋 Mis retiros de comisión
+    </h2>
+
+    <div id="listaRetirosAdmin">
+
+      <div class="vacio">
+        No tienes retiros de comisión.
+      </div>
+
+    </div>
+
+  </div>
+
 
 </div>
 
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
 
-  const usuario =
-    localStorage.getItem("usuario");
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
 
-  if (!usuario) {
+    cargarUsuarios();
 
-    window.location.href = "index.html";
+    cargarRetiros();
 
-    return;
+    actualizarComisiones();
+
+    cargarRetirosAdmin();
+
   }
-
-  cargarDatos();
-
-});
+);
 
 
-function cargarDatos() {
-
-  const usuario =
-    JSON.parse(
-      localStorage.getItem("usuario")
-    );
+/* =========================
+   USUARIOS
+========================= */
 
 
-  /* USUARIO */
+function cargarUsuarios() {
 
-  const listaUsuarios =
+  const lista =
     document.getElementById(
       "listaUsuarios"
     );
 
+  const usuarioGuardado =
+    localStorage.getItem(
+      "usuario"
+    );
 
-  if (usuario) {
+
+  if (!usuarioGuardado) {
+
+    lista.innerHTML =
+      '<div class="vacio">' +
+      'No hay usuarios registrados.' +
+      '</div>';
 
     document.getElementById(
       "usuarios"
-    ).textContent = "1";
+    ).textContent = "0";
 
-
-    listaUsuarios.innerHTML =
-
-      '<div class="fila">' +
-
-      '<div class="informacion">' +
-
-      '<strong>' +
-      usuario.nombre +
-      '</strong><br>' +
-
-      '<small>' +
-      usuario.correo +
-      '</small>' +
-
-      '</div>' +
-
-      '<span class="estado aprobado">' +
-      'Activo' +
-      '</span>' +
-
-      '</div>';
+    return;
 
   }
 
 
-  /* GANANCIAS */
-
-  const ganancias =
-    parseFloat(
-      localStorage.getItem("ganancias")
-    ) || 0;
-
-
-  document.getElementById(
-    "ganancias"
-  ).textContent =
-    "$" + ganancias.toFixed(2);
-
-
-  /* RETIROS */
-
-  const retiros =
+  const usuario =
     JSON.parse(
-      localStorage.getItem("retiros")
-    ) || [];
-
-
-  let totalRetiros = 0;
-
-  let pendientes = 0;
-
-
-  retiros.forEach(function (retiro) {
-
-    totalRetiros +=
-      parseFloat(retiro.monto) || 0;
-
-
-    if (
-      !retiro.estado ||
-      retiro.estado === "Pendiente"
-    ) {
-
-      pendientes++;
-
-    }
-
-  });
+      usuarioGuardado
+    );
 
 
   document.getElementById(
-    "retiros"
-  ).textContent =
-    "$" + totalRetiros.toFixed(2);
+    "usuarios"
+  ).textContent = "1";
 
 
-  document.getElementById(
-    "pendientes"
-  ).textContent =
-    pendientes;
+  lista.innerHTML =
 
+    '<div class="usuario">' +
 
-  mostrarRetiros(retiros);
+    '<strong>👤 ' +
+    (usuario.nombre || "Sin nombre") +
+    '</strong><br>' +
+
+    '📧 Correo: ' +
+    (usuario.correo || "Sin correo") +
+
+    '</div>';
 
 }
 
 
-/* MOSTRAR RETIROS */
+/* =========================
+   RETIROS
+========================= */
 
-function mostrarRetiros(retiros) {
+
+function cargarRetiros() {
 
   const lista =
     document.getElementById(
@@ -396,150 +501,746 @@ function mostrarRetiros(retiros) {
     );
 
 
+  const retiros =
+    JSON.parse(
+      localStorage.getItem(
+        "retiros"
+      )
+    ) || [];
+
+
   if (retiros.length === 0) {
 
     lista.innerHTML =
-      '<p class="vacio">' +
-      'No hay solicitudes registradas.' +
-      '</p>';
+      '<div class="vacio">' +
+      'No hay solicitudes de retiro.' +
+      '</div>';
+
+    actualizarEstadisticas(
+      retiros
+    );
 
     return;
+
   }
 
 
   lista.innerHTML = "";
 
 
-  retiros.slice().reverse().forEach(
-    function (retiro, indice) {
-
-      const posicion =
-        retiros.length - 1 - indice;
-
-
-      const estado =
-        retiro.estado ||
-        "Pendiente";
+  retiros
+    .slice()
+    .reverse()
+    .forEach(
+      function (retiro, indiceInvertido) {
 
 
-      const fila =
-        document.createElement("div");
+        const indiceReal =
+          retiros.length -
+          1 -
+          indiceInvertido;
 
 
-      fila.className = "fila";
+        const monto =
+          parseFloat(
+            retiro.monto
+          ) || 0;
 
 
-      let botones = "";
+        const comision =
+          parseFloat(
+            retiro.comision
+          ) ||
+          (monto * 0.10);
 
 
-      if (estado === "Pendiente") {
-
-        botones =
-
-          '<div class="botones">' +
-
-          '<button class="aprobar" ' +
-
-          'onclick="aprobarRetiro(' +
-          posicion +
-          ')">' +
-
-          '✅ Aprobar' +
-
-          '</button>' +
+        const montoRecibido =
+          parseFloat(
+            retiro.montoRecibido
+          ) ||
+          (monto - comision);
 
 
-          '<button class="rechazar" ' +
+        let claseEstado =
+          "pendiente";
 
-          'onclick="rechazarRetiro(' +
-          posicion +
-          ')">' +
 
-          '❌ Rechazar' +
+        let claseTexto =
+          "estado-pendiente";
 
-          '</button>' +
+
+        if (
+          retiro.estado ===
+          "Aprobado"
+        ) {
+
+          claseEstado =
+            "aprobado";
+
+          claseTexto =
+            "estado-aprobado";
+
+        }
+
+
+        if (
+          retiro.estado ===
+          "Rechazado"
+        ) {
+
+          claseEstado =
+            "rechazado";
+
+          claseTexto =
+            "estado-rechazado";
+
+        }
+
+
+        const elemento =
+          document.createElement(
+            "div"
+          );
+
+
+        elemento.className =
+          "retiro " +
+          claseEstado;
+
+
+        elemento.innerHTML =
+
+          '<div class="monto">' +
+
+          '📤 Retiro: ' +
+
+          monto.toFixed(2) +
+
+          ' Bs' +
+
+          '</div>' +
+
+          '<div>' +
+
+          '💳 Método: ' +
+
+          (
+            retiro.metodo ||
+            "No especificado"
+          ) +
+
+          '</div>' +
+
+          '<div class="comision">' +
+
+          '📉 Comisión CampoGana (10%): ' +
+
+          comision.toFixed(2) +
+
+          ' Bs' +
+
+          '</div>' +
+
+          '<div class="recibe">' +
+
+          '✅ Usuario recibe: ' +
+
+          montoRecibido.toFixed(2) +
+
+          ' Bs' +
+
+          '</div>' +
+
+          '<div class="estado ' +
+          claseTexto +
+          '">' +
+
+          '📌 Estado: ' +
+
+          (
+            retiro.estado ||
+            "Pendiente"
+          ) +
+
+          '</div>' +
+
+          '<div>' +
+
+          '📅 Fecha: ' +
+
+          (
+            retiro.fecha ||
+            "Sin fecha"
+          ) +
 
           '</div>';
 
+
+        if (
+          retiro.estado ===
+          "Pendiente"
+        ) {
+
+
+          const botones =
+            document.createElement(
+              "div"
+            );
+
+
+          botones.className =
+            "botones";
+
+
+          const botonAprobar =
+            document.createElement(
+              "button"
+            );
+
+
+          botonAprobar.className =
+            "aprobar";
+
+
+          botonAprobar.textContent =
+            "✅ Aprobar";
+
+
+          botonAprobar.onclick =
+            function () {
+
+              aprobarRetiro(
+                indiceReal
+              );
+
+            };
+
+
+          const botonRechazar =
+            document.createElement(
+              "button"
+            );
+
+
+          botonRechazar.className =
+            "rechazar";
+
+
+          botonRechazar.textContent =
+            "❌ Rechazar";
+
+
+          botonRechazar.onclick =
+            function () {
+
+              rechazarRetiro(
+                indiceReal
+              );
+
+            };
+
+
+          botones.appendChild(
+            botonAprobar
+          );
+
+
+          botones.appendChild(
+            botonRechazar
+          );
+
+
+          elemento.appendChild(
+            botones
+          );
+
+        }
+
+
+        lista.appendChild(
+          elemento
+        );
+
+
       }
+    );
 
 
-      let claseEstado = "";
-
-
-      if (estado === "Aprobado") {
-
-        claseEstado = "aprobado";
-
-      }
-
-
-      if (estado === "Rechazado") {
-
-        claseEstado = "rechazado";
-
-      }
-
-
-      fila.innerHTML =
-
-        '<div class="informacion">' +
-
-        '<strong>📤 Retiro de $' +
-
-        (parseFloat(retiro.monto) || 0)
-        .toFixed(2) +
-
-        '</strong><br>' +
-
-        '<small>' +
-
-        'Método: ' +
-        (retiro.metodo ||
-        "Sin método") +
-
-        '<br>' +
-
-        'Fecha: ' +
-        (retiro.fecha || "") +
-
-        '</small>' +
-
-        '</div>' +
-
-
-        '<span class="estado ' +
-        claseEstado +
-        '">' +
-
-        estado +
-
-        '</span>' +
-
-
-        botones;
-
-
-      lista.appendChild(fila);
-
-    }
+  actualizarEstadisticas(
+    retiros
   );
 
 }
 
 
-/* APROBAR RETIRO */
+/* =========================
+   ESTADÍSTICAS
+========================= */
 
-function aprobarRetiro(indice) {
+
+function actualizarEstadisticas(
+  retiros
+) {
+
+
+  let totalRetirado = 0;
+
+  let totalComisiones = 0;
+
+
+  retiros.forEach(
+    function (retiro) {
+
+
+      if (
+        retiro.estado ===
+        "Aprobado"
+      ) {
+
+
+        const monto =
+          parseFloat(
+            retiro.monto
+          ) || 0;
+
+
+        const comision =
+          parseFloat(
+            retiro.comision
+          ) ||
+          (monto * 0.10);
+
+
+        totalRetirado +=
+          monto;
+
+
+        totalComisiones +=
+          comision;
+
+      }
+
+    }
+  );
+
+
+  document.getElementById(
+    "retiros"
+  ).textContent =
+
+    totalRetirado.toFixed(2) +
+    " Bs";
+
+
+  document.getElementById(
+    "comisiones"
+  ).textContent =
+
+    totalComisiones.toFixed(2) +
+    " Bs";
+
+
+  const ganancias =
+    parseFloat(
+      localStorage.getItem(
+        "ganancias"
+      )
+    ) || 0;
+
+
+  document.getElementById(
+    "ganancias"
+  ).textContent =
+
+    ganancias.toFixed(2) +
+    " Bs";
+
+}
+
+
+/* =========================
+   CALCULAR COMISIONES
+========================= */
+
+
+function actualizarComisiones() {
 
   const retiros =
     JSON.parse(
-      localStorage.getItem("retiros")
+      localStorage.getItem(
+        "retiros"
+      )
     ) || [];
 
 
-  if (!retiros[indice]) {
+  let comisionesGanadas = 0;
+
+  let comisionesRetiradas = 0;
+
+
+  retiros.forEach(
+    function (retiro) {
+
+      if (
+        retiro.estado ===
+        "Aprobado"
+      ) {
+
+        comisionesGanadas +=
+          parseFloat(
+            retiro.comision
+          ) ||
+          (
+            (
+              parseFloat(
+                retiro.monto
+              ) || 0
+            ) * 0.10
+          );
+
+      }
+
+    }
+  );
+
+
+  const retirosAdmin =
+    JSON.parse(
+      localStorage.getItem(
+        "retirosAdmin"
+      )
+    ) || [];
+
+
+  retirosAdmin.forEach(
+    function (retiro) {
+
+      if (
+        retiro.estado ===
+        "Aprobado"
+      ) {
+
+        comisionesRetiradas +=
+          parseFloat(
+            retiro.monto
+          ) || 0;
+
+      }
+
+    }
+  );
+
+
+  let saldo =
+    comisionesGanadas -
+    comisionesRetiradas;
+
+
+  if (saldo < 0) {
+
+    saldo = 0;
+
+  }
+
+
+  localStorage.setItem(
+    "comisionesAdmin",
+    saldo.toFixed(2)
+  );
+
+
+  document.getElementById(
+    "saldoComision"
+  ).textContent =
+
+    saldo.toFixed(2) +
+    " Bs";
+
+}
+
+
+/* =========================
+   RETIRAR COMISION
+========================= */
+
+
+function retirarComision() {
+
+  actualizarComisiones();
+
+
+  const saldo =
+    parseFloat(
+      localStorage.getItem(
+        "comisionesAdmin"
+      )
+    ) || 0;
+
+
+  if (saldo <= 0) {
+
+    alert(
+      "❌ No tienes comisiones disponibles para retirar."
+    );
+
     return;
+
+  }
+
+
+  const montoTexto =
+    prompt(
+
+      "💰 Comisión disponible: " +
+
+      saldo.toFixed(2) +
+
+      " Bs\n\n" +
+
+      "¿Cuánto deseas retirar?"
+
+    );
+
+
+  if (
+    montoTexto === null
+  ) {
+
+    return;
+
+  }
+
+
+  const monto =
+    parseFloat(
+      montoTexto
+    );
+
+
+  if (
+    !monto ||
+    monto <= 0
+  ) {
+
+    alert(
+      "❌ Ingresa un monto válido."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    monto > saldo
+  ) {
+
+    alert(
+      "❌ No puedes retirar más de " +
+      saldo.toFixed(2) +
+      " Bs."
+    );
+
+    return;
+
+  }
+
+
+  const confirmar =
+    confirm(
+
+      "¿Confirmar retiro de comisión?\n\n" +
+
+      "Monto: " +
+      monto.toFixed(2) +
+      " Bs"
+
+    );
+
+
+  if (!confirmar) {
+
+    return;
+
+  }
+
+
+  const retirosAdmin =
+    JSON.parse(
+      localStorage.getItem(
+        "retirosAdmin"
+      )
+    ) || [];
+
+
+  retirosAdmin.push({
+
+    monto:
+      monto.toFixed(2),
+
+    estado:
+      "Aprobado",
+
+    fecha:
+      new Date().toLocaleString(),
+
+    concepto:
+      "Retiro de comisión CampoGana"
+
+  });
+
+
+  localStorage.setItem(
+
+    "retirosAdmin",
+
+    JSON.stringify(
+      retirosAdmin
+    )
+
+  );
+
+
+  actualizarComisiones();
+
+  cargarRetirosAdmin();
+
+
+  alert(
+
+    "✅ Retiro de comisión registrado.\n\n" +
+
+    "Monto: " +
+    monto.toFixed(2) +
+    " Bs"
+
+  );
+
+}
+
+
+/* =========================
+   HISTORIAL ADMIN
+========================= */
+
+
+function cargarRetirosAdmin() {
+
+  const lista =
+    document.getElementById(
+      "listaRetirosAdmin"
+    );
+
+
+  const retiros =
+    JSON.parse(
+      localStorage.getItem(
+        "retirosAdmin"
+      )
+    ) || [];
+
+
+  if (
+    retiros.length === 0
+  ) {
+
+    lista.innerHTML =
+      '<div class="vacio">' +
+      'No tienes retiros de comisión.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  lista.innerHTML = "";
+
+
+  retiros
+    .slice()
+    .reverse()
+    .forEach(
+      function (retiro) {
+
+
+        const elemento =
+          document.createElement(
+            "div"
+          );
+
+
+        elemento.className =
+          "retiro aprobado";
+
+
+        elemento.innerHTML =
+
+          '<div class="recibe">' +
+
+          '📤 Retiro de comisión: ' +
+
+          (
+            parseFloat(
+              retiro.monto
+            ) || 0
+          ).toFixed(2) +
+
+          ' Bs' +
+
+          '</div>' +
+
+          '<div>' +
+
+          '📌 Estado: ' +
+
+          retiro.estado +
+
+          '</div>' +
+
+          '<div>' +
+
+          '📅 Fecha: ' +
+
+          retiro.fecha +
+
+          '</div>';
+
+
+        lista.appendChild(
+          elemento
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================
+   APROBAR RETIRO USUARIO
+========================= */
+
+
+function aprobarRetiro(
+  indice
+) {
+
+
+  const retiros =
+    JSON.parse(
+      localStorage.getItem(
+        "retiros"
+      )
+    ) || [];
+
+
+  if (
+    !retiros[indice]
+  ) {
+
+    return;
+
   }
 
 
@@ -548,9 +1249,17 @@ function aprobarRetiro(indice) {
 
 
   localStorage.setItem(
+
     "retiros",
-    JSON.stringify(retiros)
+
+    JSON.stringify(
+      retiros
+    )
+
   );
+
+
+  actualizarComisiones();
 
 
   alert(
@@ -558,23 +1267,35 @@ function aprobarRetiro(indice) {
   );
 
 
-  cargarDatos();
+  cargarRetiros();
 
 }
 
 
-/* RECHAZAR RETIRO */
+/* =========================
+   RECHAZAR RETIRO
+========================= */
 
-function rechazarRetiro(indice) {
+
+function rechazarRetiro(
+  indice
+) {
+
 
   const retiros =
     JSON.parse(
-      localStorage.getItem("retiros")
+      localStorage.getItem(
+        "retiros"
+      )
     ) || [];
 
 
-  if (!retiros[indice]) {
+  if (
+    !retiros[indice]
+  ) {
+
     return;
+
   }
 
 
@@ -583,8 +1304,13 @@ function rechazarRetiro(indice) {
 
 
   localStorage.setItem(
+
     "retiros",
-    JSON.stringify(retiros)
+
+    JSON.stringify(
+      retiros
+    )
+
   );
 
 
@@ -593,11 +1319,13 @@ function rechazarRetiro(indice) {
   );
 
 
-  cargarDatos();
+  cargarRetiros();
 
 }
 
 </script>
 
+
 </body>
+
 </html>
