@@ -1323,6 +1323,50 @@ function rechazarRetiro(
 
 }
 
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const SUPABASE_URL = https://gwrnfvmygikksawncgtt.supabase.co;
+const SUPABASE_KEY = sb_publishable_t4LjQXW390DJXpGq5eRoSQ_3BepnCCn;
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function actualizarContadorUsuarios() {
+  const contador = document.getElementById("usuarios");
+  const lista = document.getElementById("listaUsuarios");
+
+  contador.textContent = "...";
+
+  try {
+    const { data, error } = await supabase.rpc(
+      "contar_usuarios_campogana"
+    );
+
+    if (error) throw error;
+
+    const total = Number(data ?? 0);
+
+    contador.textContent = String(total);
+
+    lista.innerHTML = `
+      <div class="usuario">
+        <strong>👥 ${total} usuarios registrados</strong>
+        <p>Conteo consultado desde la base de datos central.</p>
+      </div>
+    `;
+  } catch (error) {
+    console.error("Error consultando usuarios:", error);
+    contador.textContent = "Error";
+    lista.innerHTML = `
+      <div class="vacio">
+        No se pudo consultar el total de usuarios.
+        Revisa la conexión con Supabase.
+      </div>
+    `;
+  }
+}
+
+actualizarContadorUsuarios();
 </script>
 
 
