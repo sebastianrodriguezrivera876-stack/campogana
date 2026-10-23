@@ -1,8 +1,8 @@
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const SUPABASE_URL = https://gwrnfvmygikksawncgtt.supabase.co;
-const SUPABASE_KEY = sb_publishable_t4LjQXW390DJXpGq5eRoSQ_3BepnCCn;
+const SUPABASE_URL = "https://gwrnfvmygikksawncgtt.supabase.co";
+const SUPABASE_KEY = "sb_publishable_t4LjQXW390DJXpGq5eRoSQ_3BepnCCn";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -10,14 +10,17 @@ const formulario =
   document.getElementById("registroForm") ||
   document.querySelector("form");
 
-const nombreInput =
-  document.querySelector('#nombre, [name="nombre"], input[placeholder*="Nombre"]');
+const nombreInput = document.querySelector(
+  '#nombre, [name="nombre"], input[placeholder*="Nombre"]'
+);
 
-const correoInput =
-  document.querySelector('#correo, [name="correo"], input[type="email"]');
+const correoInput = document.querySelector(
+  '#correo, [name="correo"], input[type="email"]'
+);
 
-const passwordInput =
-  document.querySelector('#password, [name="password"], input[type="password"]');
+const passwordInput = document.querySelector(
+  '#password, [name="password"], input[type="password"]'
+);
 
 let mensaje = document.getElementById("mensaje");
 
@@ -28,6 +31,10 @@ if (!mensaje && formulario) {
 }
 
 if (!formulario || !nombreInput || !correoInput || !passwordInput) {
+  if (mensaje) {
+    mensaje.textContent = "No se encontraron todos los campos del formulario.";
+    mensaje.style.color = "red";
+  }
   console.error("Revisa los campos del formulario de registro.");
 } else {
   formulario.addEventListener("submit", async function (event) {
@@ -53,11 +60,9 @@ if (!formulario || !nombreInput || !correoInput || !passwordInput) {
     try {
       const { data, error } = await supabase.auth.signUp({
         email: correo,
-        password: password,
+        password,
         options: {
-          data: {
-            nombre: nombre
-          },
+          data: { nombre },
           emailRedirectTo:
             "https://sebastianrodriguezrivera876-stack.github.io/campogana/index.html"
         }
@@ -67,17 +72,20 @@ if (!formulario || !nombreInput || !correoInput || !passwordInput) {
 
       mensaje.style.color = "green";
 
+      if (data.user) {
+        mensaje.textContent = data.session
+          ? "¡Cuenta creada correctamente!"
+          : "Registro recibido. Si se requiere confirmación, revisa tu correo.";
+      }
+
       if (data.session) {
-        mensaje.textContent = "¡Cuenta creada correctamente!";
         setTimeout(() => {
           window.location.href = "index.html";
         }, 1200);
-      } else {
-        mensaje.textContent =
-          "Cuenta creada. Revisa tu correo para confirmar el registro.";
       }
     } catch (error) {
-      mensaje.textContent = error.message;
+      console.error("Error de registro:", error);
+      mensaje.textContent = error.message || "No se pudo crear la cuenta.";
       mensaje.style.color = "red";
     } finally {
       if (boton) boton.disabled = false;
