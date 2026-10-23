@@ -411,21 +411,11 @@
 <script>
 
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-
-    cargarUsuarios();
-
-    cargarRetiros();
-
-    actualizarComisiones();
-
-    cargarRetirosAdmin();
-
-  }
-);
-
+document.addEventListener("DOMContentLoaded", function () {
+  cargarRetiros();
+  actualizarComisiones();
+  cargarRetirosAdmin();
+});
 
 /* =========================
    USUARIOS
@@ -1325,11 +1315,11 @@ function rechazarRetiro(
 
 </script> 
 
-  <script type="module">
+ <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const SUPABASE_URL = https://gwrnfvmygikksawncgtt.supabase.co;
-const SUPABASE_KEY = sb_publishable_t4LjQXW390DJXpGq5eRoSQ_3BepnCCn;
+const SUPABASE_URL = "https://gwrnfvmygikksawncgtt.supabase.co";
+const SUPABASE_KEY = "sb_publishable_t4LjQXW390DJXpGq5eRoSQ_3BepnCCn";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -1338,6 +1328,7 @@ async function actualizarContadorUsuarios() {
   const lista = document.getElementById("listaUsuarios");
 
   contador.textContent = "...";
+  lista.textContent = "Consultando usuarios registrados...";
 
   try {
     const { data, error } = await supabase.rpc(
@@ -1346,32 +1337,24 @@ async function actualizarContadorUsuarios() {
 
     if (error) throw error;
 
-    const total = Number(data ?? 0);
+    const total = Number(data);
 
     contador.textContent = String(total);
 
-    lista.innerHTML = `
-      <div class="usuario">
-        <strong>👥 ${total} usuarios registrados</strong>
-        <p>Conteo consultado desde la base de datos central.</p>
-      </div>
-    `;
+    lista.textContent =
+      "Total de usuarios registrados en la base de datos: " + total;
   } catch (error) {
-    console.error("Error consultando usuarios:", error);
+    console.error("Error consultando Supabase:", error);
     contador.textContent = "Error";
-    lista.innerHTML = `
-      <div class="vacio">
-        No se pudo consultar el total de usuarios.
-        Revisa la conexión con Supabase.
-      </div>
-    `;
+    lista.textContent =
+      "No se pudo consultar Supabase. Revisa la función contar_usuarios_campogana y la conexión.";
   }
 }
 
 actualizarContadorUsuarios();
 </script>
 
-
+  
 </body>
 
 </html>
