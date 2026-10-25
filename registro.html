@@ -1,95 +1,237 @@
-<script type="module">
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear cuenta - CampoGana</title>
 
-const SUPABASE_URL = "https://gwrnfvmygikksawncgtt.supabase.co";
-const SUPABASE_KEY = "sb_publishable_t4LjQXW390DJXpGq5eRoSQ_3BepnCCn";
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-const formulario =
-  document.getElementById("registroForm") ||
-  document.querySelector("form");
-
-const nombreInput = document.querySelector(
-  '#nombre, [name="nombre"], input[placeholder*="Nombre"]'
-);
-
-const correoInput = document.querySelector(
-  '#correo, [name="correo"], input[type="email"]'
-);
-
-const passwordInput = document.querySelector(
-  '#password, [name="password"], input[type="password"]'
-);
-
-let mensaje = document.getElementById("mensaje");
-
-if (!mensaje && formulario) {
-  mensaje = document.createElement("p");
-  mensaje.id = "mensaje";
-  formulario.appendChild(mensaje);
-}
-
-if (!formulario || !nombreInput || !correoInput || !passwordInput) {
-  if (mensaje) {
-    mensaje.textContent = "No se encontraron todos los campos del formulario.";
-    mensaje.style.color = "red";
-  }
-  console.error("Revisa los campos del formulario de registro.");
-} else {
-  formulario.addEventListener("submit", async function (event) {
-    event.preventDefault();
-
-    const nombre = nombreInput.value.trim();
-    const correo = correoInput.value.trim();
-    const password = passwordInput.value;
-
-    if (!nombre || !correo || password.length < 6) {
-      mensaje.textContent =
-        "Completa los datos. La contraseña debe tener al menos 6 caracteres.";
-      mensaje.style.color = "red";
-      return;
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    mensaje.textContent = "Creando tu cuenta...";
-    mensaje.style.color = "blue";
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f0f5ed;
+      color: #243326;
+    }
 
-    const boton = formulario.querySelector('button[type="submit"]');
-    if (boton) boton.disabled = true;
+    .contenedor {
+      width: 100%;
+      max-width: 420px;
+      padding: 28px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 5px 22px rgba(0, 0, 0, 0.10);
+    }
 
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: correo,
-        password,
-        options: {
-          data: { nombre },
-          emailRedirectTo:
-            "https://sebastianrodriguezrivera876-stack.github.io/campogana/index.html"
+    h1 {
+      margin-top: 0;
+      text-align: center;
+      color: #26753b;
+    }
+
+    .descripcion {
+      text-align: center;
+      color: #606b61;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5c9;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: 2px solid #8bc69a;
+      border-color: #26753b;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      background: #26753b;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    #mensaje {
+      margin-top: 16px;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .enlace {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .enlace a {
+      color: #26753b;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="contenedor">
+    <h1>🌱 CampoGana</h1>
+    <p class="descripcion">Crea tu cuenta para comenzar.</p>
+
+    <form id="registroForm">
+      <label for="nombre">Nombre completo</label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        placeholder="Escribe tu nombre"
+        autocomplete="name"
+        required
+      >
+
+      <label for="correo">Correo electrónico</label>
+      <input
+        type="email"
+        id="correo"
+        name="correo"
+        placeholder="ejemplo@correo.com"
+        autocomplete="email"
+        required
+      >
+
+      <label for="password">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Mínimo 6 caracteres"
+        autocomplete="new-password"
+        minlength="6"
+        required
+      >
+
+      <button id="botonRegistro" type="submit">
+        Crear cuenta
+      </button>
+
+      <p id="mensaje" role="status" aria-live="polite"></p>
+    </form>
+
+    <p class="enlace">
+      ¿Ya tienes una cuenta?
+      <a href="index.html">Iniciar sesión</a>
+    </p>
+  </main>
+
+  <script type="module">
+    import { createClient } from
+      "https://esm.sh/@supabase/supabase-js@2";
+
+    const SUPABASE_URL =
+      "https://gwrnfvmygikksawncgtt.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_t4LjQXW390DJXpGq5eRoSQ_3BepnCCn";
+
+    const supabase = createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    const formulario = document.getElementById("registroForm");
+    const nombreInput = document.getElementById("nombre");
+    const correoInput = document.getElementById("correo");
+    const passwordInput = document.getElementById("password");
+    const mensaje = document.getElementById("mensaje");
+    const boton = document.getElementById("botonRegistro");
+
+    formulario.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const nombre = nombreInput.value.trim();
+      const correo = correoInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!nombre || !correo || password.length < 6) {
+        mensaje.style.color = "red";
+        mensaje.textContent =
+          "Completa todos los campos. La contraseña debe tener al menos 6 caracteres.";
+        return;
+      }
+
+      boton.disabled = true;
+      mensaje.style.color = "#245fce";
+      mensaje.textContent = "Creando tu cuenta...";
+
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: correo,
+          password: password,
+          options: {
+            data: {
+              nombre: nombre
+            },
+            emailRedirectTo:
+              "https://sebastianrodriguezrivera876-stack.github.io/campogana/index.html"
+          }
+        });
+
+        if (error) {
+          throw error;
         }
-      });
 
-      if (error) throw error;
+        if (data.session) {
+          mensaje.style.color = "green";
+          mensaje.textContent =
+            "¡Cuenta creada correctamente! Entrando...";
 
-      mensaje.style.color = "green";
-
-      if (data.user) {
-        mensaje.textContent = data.session
-          ? "¡Cuenta creada correctamente!"
-          : "Registro recibido. Si se requiere confirmación, revisa tu correo.";
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1200);
+        } else if (data.user) {
+          mensaje.style.color = "green";
+          mensaje.textContent =
+            "Registro recibido. Revisa tu correo si necesitas confirmar tu cuenta.";
+        } else {
+          mensaje.style.color = "red";
+          mensaje.textContent =
+            "No se recibió la confirmación del registro. Inténtalo de nuevo.";
+        }
+      } catch (error) {
+        console.error("Error de registro:", error);
+        mensaje.style.color = "red";
+        mensaje.textContent =
+          error.message || "No se pudo crear la cuenta.";
+      } finally {
+        boton.disabled = false;
       }
-
-      if (data.session) {
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 1200);
-      }
-    } catch (error) {
-      console.error("Error de registro:", error);
-      mensaje.textContent = error.message || "No se pudo crear la cuenta.";
-      mensaje.style.color = "red";
-    } finally {
-      if (boton) boton.disabled = false;
-    }
-  });
-}
-</script>
+    });
+  </script>
+</body>
+</html>
+```
