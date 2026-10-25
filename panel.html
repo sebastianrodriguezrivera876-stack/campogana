@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Panel - CampoGana</title>
+  <title>Panel principal - CampoGana</title>
 
   <style>
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -18,81 +16,100 @@
 
     body {
       background: #0f172a;
-      color: white;
+      color: #ffffff;
       min-height: 100vh;
     }
 
     header {
       background: #111827;
-      padding: 20px;
+      padding: 18px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 15px;
       border-bottom: 1px solid #1f2937;
     }
 
     header h2 {
       color: #22c55e;
+      font-size: 24px;
     }
 
     header a {
-      color: white;
+      color: #ffffff;
       text-decoration: none;
+      background: #1e293b;
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
+    header a:hover {
+      background: #334155;
     }
 
     .contenedor {
-      max-width: 900px;
-      margin: 40px auto;
+      width: 100%;
+      max-width: 1000px;
+      margin: 35px auto;
       padding: 20px;
     }
 
     h1 {
+      font-size: 28px;
       margin-bottom: 10px;
     }
 
     .descripcion {
       color: #94a3b8;
-      margin-bottom: 30px;
+      line-height: 1.6;
+      margin-bottom: 28px;
     }
 
     .resumen {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
     }
 
     .tarjeta {
       background: #1e293b;
       padding: 22px;
+      border: 1px solid #334155;
       border-radius: 14px;
+      overflow-wrap: anywhere;
     }
 
     .tarjeta small {
+      display: block;
       color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     .tarjeta h2 {
-      margin-top: 10px;
+      margin-top: 12px;
       color: #4ade80;
+      font-size: 25px;
     }
 
     .acciones {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 15px;
-      margin-bottom: 25px;
+      margin: 28px 0;
     }
 
     .boton {
       display: block;
       background: #22c55e;
-      color: white;
+      color: #ffffff;
       text-decoration: none;
-      padding: 15px;
+      padding: 16px;
       text-align: center;
       border-radius: 10px;
       font-weight: bold;
+      transition: background 0.2s;
     }
 
     .boton:hover {
@@ -101,412 +118,336 @@
 
     .actividad {
       background: #1e293b;
+      border: 1px solid #334155;
       padding: 22px;
       border-radius: 14px;
     }
 
     .actividad h2 {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
+      font-size: 21px;
     }
 
     #actividad {
       color: #cbd5e1;
-      line-height: 1.7;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
     }
 
-    @media (max-width: 650px) {
+    .movimiento {
+      padding: 12px 0;
+      border-bottom: 1px solid #334155;
+    }
 
-      .resumen {
-        grid-template-columns: 1fr;
+    .movimiento:last-child {
+      border-bottom: none;
+    }
+
+    .vacio {
+      color: #94a3b8;
+      padding: 10px 0;
+    }
+
+    .aviso {
+      margin-top: 20px;
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .contenedor {
+        margin: 20px auto;
+        padding: 16px;
       }
 
+      .resumen {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .tarjeta {
+        padding: 17px;
+      }
+
+      .tarjeta h2 {
+        font-size: 21px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 15px;
+      }
+
+      header h2 {
+        font-size: 21px;
+      }
+
+      .contenedor {
+        padding: 14px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .resumen,
       .acciones {
         grid-template-columns: 1fr;
       }
 
+      .tarjeta {
+        padding: 20px;
+      }
     }
-
   </style>
-
 </head>
-
 
 <body>
 
+  <header>
+    <h2>CampoGana</h2>
+    <a href="dashboard.html">← Volver</a>
+  </header>
 
-<header>
+  <main class="contenedor">
 
-  <h2>CampoGana</h2>
+    <h1>📊 Panel principal</h1>
 
-  <a href="dashboard.html">
-    ← Volver
-  </a>
+    <p class="descripcion">
+      Consulta tus ganancias, microtareas y movimientos registrados.
+    </p>
 
-</header>
+    <section class="resumen">
 
+      <div class="tarjeta">
+        <small>💰 Saldo disponible</small>
+        <h2 id="saldo">0.00 Bs</h2>
+      </div>
 
-<div class="contenedor">
+      <div class="tarjeta">
+        <small>📋 Microtareas completadas</small>
+        <h2 id="tareas">0</h2>
+      </div>
 
+      <div class="tarjeta">
+        <small>💵 Ganancias registradas</small>
+        <h2 id="ganancias">0.00 Bs</h2>
+      </div>
 
-  <h1>📊 Panel principal</h1>
+    </section>
 
-  <p class="descripcion">
-    Aquí puedes consultar tus ganancias y movimientos.
-  </p>
+    <section class="resumen">
 
+      <div class="tarjeta">
+        <small>📈 Total ganado</small>
+        <h2 id="totalGanado">0.00 Bs</h2>
+      </div>
 
-  <div class="resumen">
+      <div class="tarjeta">
+        <small>📤 Total solicitado en retiros</small>
+        <h2 id="totalRetirado">0.00 Bs</h2>
+      </div>
 
+      <div class="tarjeta">
+        <small>📉 Comisiones registradas</small>
+        <h2 id="totalComision">0.00 Bs</h2>
+      </div>
 
-    <div class="tarjeta">
+    </section>
 
-      <small>
-        💰 Saldo disponible
-      </small>
+    <nav class="acciones">
 
-      <h2 id="saldo">
-        0.00 Bs
-      </h2>
+      <a href="retiro.html" class="boton">
+        📤 Solicitar retiro
+      </a>
 
-    </div>
+      <a href="movimientos.html" class="boton">
+        📊 Ver movimientos
+      </a>
 
+    </nav>
 
-    <div class="tarjeta">
+    <section class="actividad">
 
-      <small>
-        📋 Microtareas completadas
-      </small>
+      <h2>📝 Actividad reciente</h2>
 
-      <h2 id="tareas">
-        0
-      </h2>
+      <div id="actividad" aria-live="polite">
+        Cargando actividad...
+      </div>
 
-    </div>
+    </section>
 
+    <p class="aviso">
+      Los datos mostrados dependen de los registros disponibles
+      en este navegador. Para utilizar dinero real, los saldos
+      y los retiros deben verificarse en el servidor.
+    </p>
 
-    <div class="tarjeta">
+  </main>
 
-      <small>
-        💵 Ganancias
-      </small>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-      <h2 id="ganancias">
-        0.00 Bs
-      </h2>
+      // Comprobar si existe una sesión local.
+      const usuario = localStorage.getItem("usuario");
 
-    </div>
-
-
-  </div>
-
-
-  <div class="resumen">
-
-
-    <div class="tarjeta">
-
-      <small>
-        📈 Total ganado
-      </small>
-
-      <h2 id="totalGanado">
-        0.00 Bs
-      </h2>
-
-    </div>
-
-
-    <div class="tarjeta">
-
-      <small>
-        📤 Total retirado
-      </small>
-
-      <h2 id="totalRetirado">
-        0.00 Bs
-      </h2>
-
-    </div>
-
-
-    <div class="tarjeta">
-
-      <small>
-        📉 Comisión CampoGana
-      </small>
-
-      <h2 id="totalComision">
-        0.00 Bs
-      </h2>
-
-    </div>
-
-
-  </div>
-
-
-  <div class="acciones">
-
-    <a
-      href="retiro.html"
-      class="boton"
-    >
-      📤 Retirar dinero
-    </a>
-
-
-    <a
-      href="movimientos.html"
-      class="boton"
-    >
-      📊 Ver movimientos
-    </a>
-
-  </div>
-
-
-  <div class="actividad">
-
-    <h2>
-      📝 Actividad reciente
-    </h2>
-
-    <div id="actividad">
-      Cargando actividad...
-    </div>
-
-  </div>
-
-
-</div>
-
-
-<script>
-
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-
-
-    const usuario =
-      localStorage.getItem("usuario");
-
-
-    if (!usuario) {
-
-      window.location.href =
-        "index.html";
-
-      return;
-
-    }
-
-
-    const saldo =
-      parseFloat(
-        localStorage.getItem("saldo")
-      ) || 0;
-
-
-    const tareas =
-      parseInt(
-        localStorage.getItem(
-          "tareasCompletadas"
-        )
-      ) || 0;
-
-
-    const ganancias =
-      parseFloat(
-        localStorage.getItem(
-          "ganancias"
-        )
-      ) || 0;
-
-
-    const retiros =
-      JSON.parse(
-        localStorage.getItem(
-          "retiros"
-        )
-      ) || [];
-
-
-    const movimientos =
-      JSON.parse(
-        localStorage.getItem(
-          "movimientos"
-        )
-      ) || [];
-
-
-    document.getElementById(
-      "saldo"
-    ).textContent =
-
-      saldo.toFixed(2) +
-      " Bs";
-
-
-    document.getElementById(
-      "tareas"
-    ).textContent = tareas;
-
-
-    document.getElementById(
-      "ganancias"
-    ).textContent =
-
-      ganancias.toFixed(2) +
-      " Bs";
-
-
-    document.getElementById(
-      "totalGanado"
-    ).textContent =
-
-      ganancias.toFixed(2) +
-      " Bs";
-
-
-    let totalRetirado = 0;
-
-    let totalComision = 0;
-
-
-    retiros.forEach(
-      function (retiro) {
-
-        totalRetirado +=
-          parseFloat(
-            retiro.monto
-          ) || 0;
-
-
-        totalComision +=
-          parseFloat(
-            retiro.comision
-          ) || 0;
-
+      if (!usuario) {
+        window.location.href = "index.html";
+        return;
       }
-    );
 
+      // Leer números sin aceptar valores inválidos.
+      function leerNumero(clave) {
+        const valor = Number(localStorage.getItem(clave));
 
-    document.getElementById(
-      "totalRetirado"
-    ).textContent =
+        return Number.isFinite(valor) ? valor : 0;
+      }
 
-      totalRetirado.toFixed(2) +
-      " Bs";
+      // Leer listas guardadas en el navegador.
+      function leerLista(clave) {
+        try {
+          const datos = JSON.parse(
+            localStorage.getItem(clave) || "[]"
+          );
 
+          return Array.isArray(datos) ? datos : [];
+        } catch (error) {
+          return [];
+        }
+      }
 
-    document.getElementById(
-      "totalComision"
-    ).textContent =
+      // Formatear cantidades en bolivianos.
+      function formatoBs(valor) {
+        return valor.toLocaleString("es-BO", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }) + " Bs";
+      }
 
-      totalComision.toFixed(2) +
-      " Bs";
+      const saldo = leerNumero("saldo");
 
-
-    const actividad =
-      document.getElementById(
-        "actividad"
+      const tareas = Math.max(
+        0,
+        Math.floor(leerNumero("tareasCompletadas"))
       );
 
+      const ganancias = leerNumero("ganancias");
 
-    if (
-      movimientos.length === 0 &&
-      retiros.length === 0
-    ) {
+      const retiros = leerLista("retiros");
 
-      actividad.innerHTML =
-        "Todavía no tienes actividad registrada.";
+      const movimientos = leerLista("movimientos");
 
-      return;
+      // Mostrar el resumen.
+      document.getElementById("saldo").textContent =
+        formatoBs(saldo);
 
-    }
+      document.getElementById("tareas").textContent =
+        String(tareas);
 
+      document.getElementById("ganancias").textContent =
+        formatoBs(ganancias);
 
-    let html = "";
+      document.getElementById("totalGanado").textContent =
+        formatoBs(ganancias);
 
+      // Sumar los retiros y las comisiones registrados.
+      let totalRetirado = 0;
+      let totalComision = 0;
 
-    movimientos
-      .slice()
-      .reverse()
-      .slice(0, 5)
-      .forEach(
+      retiros.forEach(function (retiro) {
+        const monto = Number(retiro.monto);
+        const comision = Number(retiro.comision);
+
+        if (Number.isFinite(monto)) {
+          totalRetirado += monto;
+        }
+
+        if (Number.isFinite(comision)) {
+          totalComision += comision;
+        }
+      });
+
+      document.getElementById("totalRetirado").textContent =
+        formatoBs(totalRetirado);
+
+      document.getElementById("totalComision").textContent =
+        formatoBs(totalComision);
+
+      // Preparar la actividad reciente de forma segura.
+      const contenedorActividad =
+        document.getElementById("actividad");
+
+      const listaActividad = [];
+
+      movimientos.slice(-5).reverse().forEach(
         function (movimiento) {
-
-          html +=
-
-            "📥 <strong>Ganancia:</strong> +" +
-
-            (
-              parseFloat(
-                movimiento.monto
-              ) || 0
-            ).toFixed(2) +
-
-            " Bs — " +
-
-            movimiento.concepto +
-
-            "<br><br>";
-
+          listaActividad.push({
+            tipo: "ganancia",
+            monto: Number(movimiento.monto) || 0,
+            concepto: String(
+              movimiento.concepto || "Ganancia registrada"
+            )
+          });
         }
       );
 
-
-    retiros
-      .slice()
-      .reverse()
-      .slice(0, 5)
-      .forEach(
+      retiros.slice(-5).reverse().forEach(
         function (retiro) {
-
-          html +=
-
-            "📤 <strong>Retiro:</strong> -" +
-
-            (
-              parseFloat(
-                retiro.monto
-              ) || 0
-            ).toFixed(2) +
-
-            " Bs — Estado: " +
-
-            retiro.estado +
-
-            "<br>";
-
-          html +=
-
-            "📉 Comisión: " +
-
-            (
-              parseFloat(
-                retiro.comision
-              ) || 0
-            ).toFixed(2) +
-
-            " Bs<br><br>";
-
+          listaActividad.push({
+            tipo: "retiro",
+            monto: Number(retiro.monto) || 0,
+            comision: Number(retiro.comision) || 0,
+            estado: String(retiro.estado || "Pendiente")
+          });
         }
       );
 
+      if (listaActividad.length === 0) {
+        const mensaje = document.createElement("p");
 
-    actividad.innerHTML = html;
+        mensaje.className = "vacio";
+        mensaje.textContent =
+          "Todavía no tienes actividad registrada.";
 
+        contenedorActividad.replaceChildren(mensaje);
+        return;
+      }
 
-  }
+      listaActividad.slice(0, 10).forEach(
+        function (item) {
+          const fila = document.createElement("div");
 
-);
+          fila.className = "movimiento";
 
-</script>
+          const titulo = document.createElement("strong");
+          const detalle = document.createElement("div");
 
+          if (item.tipo === "ganancia") {
+            titulo.textContent =
+              "📥 Ganancia: +" + formatoBs(item.monto);
+
+            detalle.textContent = item.concepto;
+          } else {
+            titulo.textContent =
+              "📤 Retiro solicitado: " + formatoBs(item.monto);
+
+            detalle.textContent =
+              "Estado: " + item.estado +
+              " | Comisión registrada: " +
+              formatoBs(item.comision);
+          }
+
+          fila.appendChild(titulo);
+          fila.appendChild(detalle);
+
+          contenedorActividad.appendChild(fila);
+        }
+      );
+
+    });
+  </script>
 
 </body>
-
 </html>
